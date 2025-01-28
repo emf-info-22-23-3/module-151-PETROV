@@ -32,8 +32,18 @@ function chargerTeamSuccess(data, text, jqXHR) {
 function chargerPlayerSuccess(data, text, jqXHR) {
 	// Appelé lorsque la liste des joueurs est reçue
     var cmbJoueurs = document.getElementById("cmbJoueurs");
+    var position = 0;
+    $(data).find("joueur").each(function() {
+        var joueur = new Joueur();
+        joueur.setNom($(this).find("nom").text());
+        joueur.setPoints($(this).find("points").text());
+        cmbJoueurs.options[position] = new Option(joueur, JSON.stringify(joueur));
+        position++;
+    });
+
+
 	// A COMPLETER!!! selon la logique suivante:
-	// cmbJoueurs.options[cmbJoueurs.options.length] = new Option(<ce qui sera affiché>, <la valeur de la cellule>));
+	//cmbJoueurs.options[cmbJoueurs.options.length] = new Option(<ce qui sera affiché>, <la valeur de la cellule>));
 }
 
 /**

@@ -23,7 +23,7 @@ https://openclassrooms.com/fr/courses/1665806-programmez-en-oriente-objet-en-php
 	class Membre
 	{
 	        private $nom;
-	        public $numero;
+	        private $numero;
 	        public function construct($nom, $numero)
 	        {
 	                $this->nom = $nom;
@@ -32,6 +32,10 @@ https://openclassrooms.com/fr/courses/1665806-programmez-en-oriente-objet-en-php
 	        public function getNom()
 	        {
 	                return $this->nom ;
+	        }
+			public function getNumero()
+	        {
+	                return $this->numero ;
 	        }
 	}
 	?>
@@ -42,12 +46,12 @@ Le code suivant utilise cette classe :
 ```php
 	<?php
 	include_once('Membre')
+	declare(strict_type=1);
+	$membre = new Membre('paul', 12);
+	$nom = $membre->getNom();
+	$numero = $membre->getNumero();
 	
-	$membre = new Membre('paul');
-	$Nom = $membre.getNom();
-	$Numero = $membre.$numero;
-	
-	echo 'Un nouveau membre! Nom: ' $nom ', son âge: ' .$numero. '.';
+	echo 'Un nouveau membre! Nom: ' .$nom. ', son âge: ' .$numero. '.';
 	?>
 ```
 Il y a malheureusement des erreurs dans ces deux extraits de code. Corrigez Ces erreurs (mettez-les en rouge pour vous en souvenir).

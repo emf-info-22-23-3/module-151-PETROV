@@ -1,10 +1,10 @@
 <?php
-    class Equipe implements implements JsonSerializable{
+    class Equipe implements JsonSerializable{
         private $nom;
-        private  $id
+        private  $id;
         public function __construct( $id,  $nom) {
-            $this->$id = $id;
-            $this->$nom = $nom;
+            $this->id = $id;
+            $this->nom = $nom;
         }
         public function getId(){
             return $this->$id;

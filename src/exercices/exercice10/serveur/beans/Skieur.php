@@ -32,13 +32,14 @@ class Skieur {
   /**
    * Constructeur de la classe beanEquipe
    *
-   * @param int $pkCoureur. PK du skieur.
+   * @param int $pk_skieur. PK du skieur.
    * @param string $nomEquipe. Nom du skieur.
    * @param string $position. Position du skieur.
    */
-  public function __construct($pkSkieur, $nom, $position) {
-    $this->pk_skieur = $pkSkieur;
+  public function __construct($pk_skieur, $nom, $position) {
+    $this->pk_skieur = $pk_skieur;
     $this->nom = $nom;
+    $this->position = $position;
   }
 
   /**
@@ -76,7 +77,7 @@ class Skieur {
   {
     $result = '<skieur>';
     $result = $result . '<nom>'.$this->getNom().'</nom>';
-    $result = $result . '<position>'.$this->getNom().'</position>';
+    $result = $result . '<position>'.$this->getPosition().'</position>';
     $result = $result . '</skieur>';
     return $result;
   }

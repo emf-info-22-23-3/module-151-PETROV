@@ -24,10 +24,10 @@
 			$connection = Connexion::getInstance();
 			$query = $connection->selectQuery("select * from t_skieur where FK_Pays = " .$fkPays, array());
 			foreach($query as $data){
-				$coureur = new Skieur($data['PK_Skieur'], $data['Nom'], $data['PK_Skieur']);
+				$coureur = new Skieur($data['PK_Skieur'], $data['Nom'], $data['Position']);
 				$liste[$count++] = $coureur;
 			}	
-			return $liste;	
+			return $liste;
 		}
 		
 		/**

@@ -1,0 +1,861 @@
+body {
+    margin: 0;
+    padding-top: 30px;
+    font-family: "Titillium Web", serif;
+    ;
+}
+
+hr {
+    border: 0;
+    background-color: black;
+    height: 3px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+main {
+    min-height: 548px;
+}
+
+.page-content-container {
+    padding-right: 3%;
+    padding-left: 3%;
+    margin-bottom: 80px;
+}
+
+.nav-container {
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.logo-button {
+    padding: 0;
+    border: none;
+    background: transparent;
+    text-decoration: none;
+}
+
+.logo-button:hover {
+    cursor: pointer;
+}
+
+.logo {
+    margin: 0;
+    font-size: 50pt;
+    font-family: "Titillium Web", serif;
+    font-weight: 300;
+    color: #FFC179;
+}
+
+.search-bar-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    width: 40%;
+}
+
+::placeholder {
+    color: #CCCCCC;
+}
+
+.search-bar {
+    font-size: 20pt;
+    font-family: Arial, Helvetica, sans-serif;
+    border: 2px solid;
+    padding: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 100%;
+    width: 100%;
+}
+
+.profile-all-buttons-container {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 40px;
+
+}
+
+.profile-button-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.profile-button,
+.profile-icon-button {
+    border: 0;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-right: 20px;
+    padding-left: 20px;
+    font-family: "Alata", serif;
+    color: #FFC179;
+    font-size: 20pt;
+    text-decoration: none;
+}
+
+.profile-img {
+    display: flex;
+    align-items: center;
+    height: 90%;
+    border: 2px solid rgba(red, green, blue, 0);
+    border-radius: 100px;
+    padding: 2px;
+}
+
+.profile-button:hover,
+.profile-icon-button:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.profile-icon-button {
+    padding: 0;
+}
+
+.hr-nav {
+    background-color: #FFC179;
+    height: 5px;
+    width: 100%;
+    border-radius: 100px;
+    border: 0;
+    margin: 0;
+    margin-bottom: 50px;
+    margin-top: 30px;
+}
+
+#home-banner-container {
+    position: relative;
+    width: 100%;
+    height: 415px;
+    background: url("../images/Home-banner.jpg") no-repeat center/cover;
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+#home-banner-container::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.65) 100%, #ffffff);
+}
+
+.home-banner {
+    width: 100%;
+    filter: brightness(60%);
+}
+
+#welcome-text {
+    text-align: center;
+    z-index: 100;
+    font-size: 60pt;
+    font-weight: 700;
+    color: white;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+    width: fit-content;
+}
+
+#presentation-text {
+    text-align: justify;
+    font-size: 17pt;
+}
+
+h1 {
+    font-weight: 600;
+    font-size: 40pt;
+    color: #FFC179;
+    margin-bottom: 40px;
+    margin-top: 40px;
+}
+
+h2 {
+    font-weight: 700;
+    font-size: 30pt;
+    margin-bottom: 40px;
+    margin-top: 40px;
+}
+
+#liste-promotions-container {
+    width: 100%;
+    overflow: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    background-color: #fdfdfd;
+    box-shadow: 0px 0px 10px -1px rgba(0, 0, 0, 0.5);
+}
+
+.boisson-container {
+    width: 300px;
+    padding: 0;
+    box-shadow: 1px 3px 10px -5px rgba(0, 0, 0, 1);
+    background-color: white;
+    margin: 20px;
+    display: inline-block;
+    border: 0;
+    text-decoration: none;
+    color: black;
+}
+
+.boisson-container:hover {
+    cursor: pointer;
+}
+
+.boisson-image {
+    width: 100%;
+    height: 300px;
+    object-fit: contain;
+}
+
+.boisson-informations-container {
+    padding-left: 20px;
+    font-weight: 700;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.boisson-nom {
+    margin: 0;
+    font-size: 16pt;
+}
+
+.boisson-quantite {
+    font-weight: 300;
+    margin: 0;
+    font-size: 14pt;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.boisson-prix {
+    margin: 0;
+    font-size: 30pt;
+    color: rgb(255, 0, 119);
+}
+
+#liste-assortiments-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 70px;
+
+}
+
+.assortiment-container {
+    border: 0;
+    padding: 0;
+    height: 200px;
+    width: 100%;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 30pt;
+    font-family: "Titillium Web", serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.assortiment-container:hover {
+    cursor: pointer;
+}
+
+#assortiment-vins-container {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 100%, #ffffff), url("../images/vins.webp") no-repeat center/cover;
+}
+
+#assortiment-bieres-container {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 100%, #ffffff), url("../images/bieres.jpg") no-repeat center/cover;
+}
+
+#assortiment-spiritueux-container {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 100%, #ffffff), url("../images/spiritueux.webp") no-repeat center/cover;
+}
+
+#assortiment-sans-alcool-container {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 100%, #ffffff), url("../images/sans-alcool.jpeg") no-repeat center/cover;
+}
+
+footer {
+    padding-right: 3%;
+    padding-left: 3%;
+    color: white;
+    background-color: #FFC179;
+    height: 160px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 640px;
+}
+
+.footer-adresse-container p {
+    margin: 0;
+}
+
+.footer-move-up-text {
+    text-decoration: none;
+    color: white;
+    font-weight: 700;
+    font-size: 28pt;
+}
+
+#all-achat-boisson-container {
+    display: flex;
+    width: 100%;
+    height: 350px;
+    align-items: center;
+}
+
+#achat-boisson-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-width: 450px;
+}
+
+#achat-boisson-image {
+    width: 500px;
+    height: 100%;
+    object-fit: contain;
+}
+
+#achat-boisson-nom {
+    margin: 0;
+    font-size: 40pt;
+    font-weight: 700;
+}
+
+.achat-container {
+    display: flex;
+    align-items: center;
+    gap: 200px;
+}
+
+#achat-boisson-quantite {
+    margin: 0;
+    ;
+    font-size: 30pt;
+    margin-bottom: 40px;
+}
+
+#achat-boisson-prix {
+    margin: 0;
+    font-size: 50pt;
+    font-weight: 700;
+    color: rgb(255, 0, 119);
+}
+
+#all-quantite-container {
+    margin-left: 170px;
+}
+
+#quantite-disponible-text {
+    font-weight: 600;
+    margin: 0;
+    margin-bottom: 8px;
+}
+
+.select-quantite-container {
+    display: flex;
+    border: 1px solid black;
+    height: 60px;
+    width: min-content;
+    margin-right: 40px;
+}
+
+.select-quantite-button {
+    width: 60px;
+    height: 100%;
+    background: transparent;
+    border: 0;
+    font-weight: 500;
+    font-size: 20pt;
+}
+
+.select-quantite-text {
+    padding-left: 40px;
+    padding-right: 40px;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+.select-quantite-panier-button-container {
+    height: 100%;
+    width: 70px;
+}
+
+.select-quantite-panier-button {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    background-color: #FFC179;
+    border: 0;
+    border-left: 1px solid black;
+    justify-content: center;
+    display: flex;
+}
+
+.select-quantite-panier {
+    height: 100%;
+    width: 90%;
+    object-fit: contain;
+    filter: brightness(100);
+
+}
+
+.select-quantite-panier-button:hover,
+.select-quantite-button:hover {
+    cursor: pointer;
+}
+
+#liste-panier-container {
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.panier-container {
+    box-shadow: 0px 0px 10px 1px black;
+    height: 250px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    justify-content: space-between;
+}
+
+.panier-produit-container {
+    display: flex;
+    height: 100%;
+}
+
+.panier-produit-image {
+    height: 100%;
+    width: 300px;
+    object-fit: contain;
+}
+
+.panier-produit-informations-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 340px;
+
+}
+
+.panier-produit-nom {
+    margin: 0;
+    font-size: 30pt;
+    font-weight: 700;
+}
+
+.panier-produit-quantite {
+    margin: 0;
+}
+
+.panier-produit-prix {
+    margin: 0;
+    font-size: 40pt;
+    font-weight: 700;
+    color: rgb(255, 0, 119);
+}
+
+.delete-item-panier-button {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    background-color: #c2c0bf;
+    border: 0;
+    border-left: 1px solid black;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.delete-item-panier-button:hover {
+    cursor: pointer;
+}
+
+.delete-item-panier {
+    height: 80%;
+    object-fit: contain;
+}
+
+#finalisation-commande-container {
+    z-index: 1000;
+    display: flex;
+    border: 1px solid black;
+    height: 80px;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+#finalisation-commande-prix {
+    margin: 0;
+    font-size: 25pt;
+    font-weight: 700;
+    min-width: 345px;
+}
+
+#finalisation-commande-form-container {
+    height: 50px;
+    display: flex;
+    gap: 20px;
+}
+
+#finalisation-commande-code {
+    width: 280px;
+    font-size: 18pt;
+    padding: 10px;
+}
+
+#finalisation-commande-button {
+    border: 0;
+    font-weight: 700;
+    background-color: #FFC179;
+    color: white;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+#finalisation-commande-button:hover {
+    cursor: pointer;
+}
+
+.liste-vide-container {
+    display: flex;
+    justify-content: center;
+
+}
+
+.liste-vide-text {
+    font-weight: 600;
+    font-size: 30pt;
+}
+
+.login-content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 708px;
+}
+
+.login-container {
+    width: 565px;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 40px;
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.6);
+}
+
+.login-title {
+    font-size: 50pt;
+    color: #FFC179;
+    font-weight: 600;
+    margin: 0;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+    align-items: center;
+}
+
+.login-form {
+
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.login-form-text {
+    margin: 0;
+    font-size: 22pt;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.login-form-input {
+    width: 450px;
+    height: 40px;
+    font-size: 20pt;
+    padding: 0;
+    padding-left: 5px;
+    margin-bottom: 15px;
+}
+
+.login-form-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.login-form-button {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 200px;
+    height: 57px;
+    font-size: 21pt;
+    color: white;
+    font-weight: 600;
+    border-radius: 3px;
+    margin-top: 20px;
+    border: 0;
+    background-color: #FFC179;
+}
+
+.login-form-button:hover {
+    cursor: pointer;
+}
+
+#login-creation-compte-text {
+    text-decoration: none;
+    color: #FFC179;
+    margin: 0;
+    cursor: pointer;
+}
+
+#login-creation-compte-text:hover {
+    text-decoration: underline
+}
+
+.login-other-text {
+    margin-top: 15px;
+    margin-bottom: 0;
+}
+
+#liste-commandes-container {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.commande-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-width: 640px;
+    height: 120px;
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.6);
+    font-size: 30pt;
+    font-weight: 700;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.commande-container p {
+    margin: 20px;
+}
+
+.commande-form-container {
+    height: 70%;
+    width: 150px;
+    display: flex;
+    align-items: center;
+    margin: 20px;
+}
+
+.commande-delete-button {
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    padding: 0;
+}
+
+.commande-delete-button-img {
+    display: flex;
+    align-items: center;
+    height: 80%;
+    width: 100%;
+    object-fit: contain;
+}
+
+#recherche-all-elements-container {
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+    
+}
+
+#recherche-filtres-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 20px;
+    
+}
+
+#filtres-titre{
+    text-align: left;
+    width: 100%;
+    font-size: 25pt;
+    margin: 0;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.filtre-container {
+    width: 100%;
+    box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filtre-container p {
+    margin: 0;
+}
+
+.filtre-checkbox {
+    transform: scale(1.5);
+}
+
+#recherche-tris-boissons-container {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    flex-grow: 4;
+    gap: 50px;
+    min-width: 1050px;
+}
+
+#recherche-tris-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 60px;
+}
+
+#recherche-liste-tri-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    flex-grow: 1;
+    font-size: 20pt;
+}
+
+#recherche-promotions-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-grow: 1;
+    gap: 20px;
+    font-size: 20pt;
+}
+
+#recherche-application-button-container {
+    flex-grow: 1;
+    height: 100%;
+    display: flex;
+    justify-content: right;
+    margin-right: 80px;
+}
+
+#recherche-application-button {
+    width: 200px;
+    height: 100%;
+    border: 0;
+    background-color: #FFC179;
+    color: white;
+    font-family: "Titillium Web", serif;
+    font-weight: 700;
+    font-size: 20pt;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#recherche-boissons-container {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: rgb(245, 245, 245);
+    justify-content: center;
+    padding: 5px;
+    border-radius: 10px;
+    min-height: 428px;
+}
+
+#tri-combobox {
+    width: 240px;
+    font-size: 18pt;
+    font-family: "Titillium Web", serif;
+}
+
+#toggle-promotions-container {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+#toggle-promotions-container input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+
+#promotions-slider-round {
+    border-radius: 34px;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+#promotions-slider-round:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked+#promotions-slider-round {
+    background-color: #FFC179;
+}
+
+input:checked+#promotions-slider-round:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}

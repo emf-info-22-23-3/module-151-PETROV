@@ -1,0 +1,73 @@
+<div class="page-content-container">
+    <nav class="nav-container">
+        <div class="logo-container">
+            <a class="logo-button" onclick="indexCtrl.loadAccueil()">
+                <p class="logo"><span class="bold">Drink</span>UP</p>
+            </a>
+        </div>
+        <div class="search-bar-container">
+            <input class="search-bar" action="/recherche.html" type="text" placeholder="Rechercher...">
+        </div>
+        <div class="profile-all-buttons-container">
+           
+        </div>
+    </nav>
+    <hr class="hr-nav">
+    <main>
+        <div id="recherche-all-elements-container">
+            <div id="recherche-filtres-container">
+                <p id="filtres-titre">Assortiments</p>
+                <div class="filtre-container">
+                    <p>Vins</p>
+                    <input type="checkbox" name="Vins" class="filtre-checkbox">
+                </div>
+                <div class="filtre-container">
+                    <p>Bières / Cidres</p>
+                    <input type="checkbox" name="Bières / Cidres" class="filtre-checkbox">
+                </div>
+                <div class="filtre-container">
+                    <p>Spiritueux</p>
+                    <input type="checkbox" name="Spiritueux" class="filtre-checkbox">
+                </div>
+                <div class="filtre-container">
+                    <p>Sans alcool</p>
+                    <input type="checkbox" name="Sans alcool" class="filtre-checkbox">
+                </div>
+            </div>
+            <div id="recherche-tris-boissons-container">
+                <div id="recherche-tris-container">
+                    <div id="recherche-liste-tri-container">
+                        <p>Tri :</p>
+                        <select name="tri" id="tri-combobox">
+                            <option value="AZ">De A à Z</option>
+                            <option value="ZA">De Z à A</option>
+                            <option value="prix-croissant">Prix croissant</option>
+                            <option value="prix-decroissant">Prix décroissant</option>
+                        </select>
+                    </div>
+                    <div id="recherche-promotions-container">
+                        <p>Uniquement les promotions</p>
+                        <label id="toggle-promotions-container">
+                            <input type="checkbox">
+                            <span id="promotions-slider-round"></span>
+                        </label>
+                    </div>
+                    <div id="recherche-application-button-container">
+                        <button id="recherche-application-button">Appliquer</button>
+                    </div>
+                </div>
+                <div id="recherche-boissons-container"></div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<footer>
+    <div class="footer-adresse-container">
+        <p>DrinkUP</p>
+        <p>Rue des Vins et Breuvages 43</p>
+        <p>1700 Fribourg</p>
+    </div>
+    <a href="#" class="footer-move-up-text">REVENIR EN HAUT</a>
+    <p>© 2025 DrinkUP SA - Tout droits réservés </p>
+</footer>

@@ -1,0 +1,60 @@
+<div class="page-content-container">
+    <nav class="nav-container">
+        <div class="logo-container">
+            <a class="logo-button" onclick="indexCtrl.loadAccueil()">
+                <p class="logo"><span class="bold">Drink</span>UP</p>
+            </a>
+        </div>
+        <div class="search-bar-container">
+            <input class="search-bar" action="/recherche.html" type="text" placeholder="Rechercher..."
+                onkeypress="checkPress(event)">
+        </div>
+        <div class="profile-all-buttons-container">
+           
+        </div>
+    </nav>
+    <hr class="hr-nav">
+    <main>
+        <div id="all-achat-boisson-container">
+            <img src="" id="achat-boisson-image" alt="boisson" onerror="javascript:this.src='/images/no-image.webp'">
+            <div id="achat-boisson-container">
+                <p id="achat-boisson-nom"></p>
+                <p id="achat-boisson-quantite"></p>
+                <p id="achat-boisson-prix"></p>
+            </div>
+            <div id="all-quantite-container">
+                <p id="quantite-disponible-text"> quantité disponible : <span id="achat-boisson-quantite-disponible"></span></p>
+                <div class="select-quantite-container">
+                    <button class="select-quantite-button" onclick='diminuerQuantite(".select-quantite-text");'>-</button>
+                    <p class="select-quantite-text">1</p>
+                    <button class="select-quantite-button" onclick='augmenterQuantite(".select-quantite-text");'>+</button>
+                    <div action="" method="" class="select-quantite-panier-button-container">
+                        <button class="select-quantite-panier-button">
+                            <img class="select-quantite-panier" src="/images/panier.webp" alt="panier">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <h2>Informations</h2>
+        <p id="achat-boisson-informations"></p>
+        <h2>Ingrédients</h2>
+        <p id="achat-boisson-ingredients"></p>
+        <h2>Producteur</h2>
+        <p id="achat-boisson-producteur"></p>
+        <h2>Région</h2>
+        <p id="achat-boisson-region"></p>
+    </main>
+
+</div>
+
+<footer>
+    <div class="footer-adresse-container">
+        <p>DrinkUP</p>
+        <p>Rue des Vins et Breuvages 43</p>
+        <p>1700 Fribourg</p>
+    </div>
+    <a href="#" class="footer-move-up-text">REVENIR EN HAUT</a>
+    <p>© 2025 DrinkUP SA - Tout droits réservés </p>
+</footer>

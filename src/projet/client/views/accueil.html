@@ -1,0 +1,74 @@
+<div class="page-content-container">
+    <nav class="nav-container">
+        <div class="logo-container">
+            <a class="logo-button" onclick="indexCtrl.loadAccueil()">
+                <p class="logo"><span class="bold">Drink</span>UP</p>
+            </a>
+        </div>
+        <div class="search-bar-container">
+            <input class="search-bar" action="/recherche.html" type="text" placeholder="Rechercher..."
+                onkeypress="checkPress(event)">
+        </div>
+        <div class="profile-all-buttons-container">
+           
+        </div>
+    </nav>
+    <hr class="hr-nav">
+    <main>
+        <div id="home-banner-container">
+            <p id="welcome-text">Bienvenue chez DrinkUP</p>
+        </div>
+
+        <p id="presentation-text">DrinkUP n'est pas seulement une entreprise de boissons, c'est un véritable
+            partenaire
+            de votre vie
+            quotidienne. Nous savons combien il est important de se faire plaisir tout en prenant soin de sa santé.
+            C'est pourquoi nous promettons de fournir des produits à la fois agréables au goût et bons pour votre
+            santé.
+            Que vous soyez chez vous, au bureau ou en déplacement, notre objectif est de rendre chaque instant plus
+            agréable et chaque gorgée plus délicieuse.
+
+            En tant qu'entreprise, nous sommes fiers de travailler avec des fournisseurs responsables et préférons
+            utiliser des produits écologiques en minimisant l'impact environnemental à chaque étape de nos processus
+            de
+            production et de distribution.
+        </p>
+
+        <p id="presentation-text">Avec DrinkUP, vous n'obtenez pas simplement une autre boisson, mais une nouvelle
+            expérience rafraîchissante
+            et plus saine à chaque gorgée. Passez quelques minutes avec nous et nous rendrons vos journées plus
+            colorées
+            avec notre variété de
+            boissons.</p>
+
+        <h1>En promotion</h1>
+        <div id="liste-promotions-container">
+            
+        </div>
+        <h1>Assortiments</h1>
+        <div id="liste-assortiments-container">
+            <button class="assortiment-container" id="assortiment-vins-container" onclick='indexCtrl.loadRecherche("", "vins")'>
+                <p>Vins</p>
+            </button>
+            <button class="assortiment-container" id="assortiment-bieres-container" onclick='indexCtrl.loadRecherche("", "bieres")'>
+                <p>Bières et cidres</p>
+            </button>
+            <button class="assortiment-container" id="assortiment-spiritueux-container" onclick='indexCtrl.loadRecherche("", "spiritueux")'>
+                <p>Spiritueux</p>
+            </button>
+            <button class="assortiment-container" id="assortiment-sans-alcool-container" onclick='indexCtrl.loadRecherche("", "sans-alcool")'>
+                <p>Boissons non-alcoolisées</p>
+            </button>
+        </div>
+    </main>
+</div>
+
+<footer>
+    <div class="footer-adresse-container">
+        <p>DrinkUP</p>
+        <p>Rue des Vins et Breuvages 43</p>
+        <p>1700 Fribourg</p>
+    </div>
+    <a href="#" class="footer-move-up-text">REVENIR EN HAUT</a>
+    <p>© 2025 DrinkUP SA - Tout droits réservés </p>
+</footer>

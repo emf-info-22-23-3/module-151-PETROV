@@ -1,0 +1,30 @@
+<div class="page-content-container">
+    <nav class="nav-container">
+        <div class="logo-container">
+            <a href="/index.html" class="logo-button">
+                <p class="logo"><span class="bold">Drink</span>UP</p>
+            </a>
+        </div>
+    </nav>
+    <hr class="hr-nav">
+    <main>
+        <div class="login-content-container">
+            <div class="login-container">
+                <p class="login-title">Authentification</p>
+                <div class="login-form">
+                    <p class="login-form-text">Nom d'utilisateur</p>
+                    <input type="text" name="username" class="login-form-input" placeholder="nom d'utilisateur">
+                    <p class="login-form-text">Mot de passe</p>
+                    <input type="password" class="login-form-input" name="password" placeholder="mot de passe">
+                    <div class="login-form-button-container">
+                        <button class="login-form-button" onclick="loginCtrl.login()">CONNEXION</button>
+                        <p class="login-other-text">Ou</p>
+                        <a class="login-other-text" onclick="indexCtrl.loadCreationCompte()" id="login-creation-compte-text">Créer
+                            un compte</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

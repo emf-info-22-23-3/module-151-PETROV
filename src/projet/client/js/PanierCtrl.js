@@ -12,43 +12,15 @@ class PanierCtrl {
         checkUser();
     }
 
+    //Méthode dédiée à l'initialisation du contrôleur
+    initialiser(pkPanier) {}
 
-    initialiser(pkPanier) {
-        this.chargerPanier(pkPanier)
-            .then(produits => {
-                
-                if (produits.length !== 0) {
-                    this.afficherPanier(pkPanier, produits)
-                } else {
-                    this.afficherPanierVide();
-                }
-            })
-            .catch((erreur) => {
-                alert("Un problème est survenu lors du chargement des articles : \n" + erreur);
-            });
-    }
-
+    //Méthode dédiée au chargement du panier
     chargerPanier(pkPanier, pkUtilisateur) {
-        let url = "https://api.themoviedb.org/3/trending/movie/day?api_key=526e37e9209768bacef81555818cbea5&language=fr-FR";
-        return httpService.fetchGet(url)
-            .then(data => {
-                let listeProduits = [];
-                
-                if (data.results != undefined) {
-                    data.results.forEach(produit => {
-                        if (produit.nom != '') {
-                            listeProduits.push(produit);
-                        }
-                    });
-                }
-                
-                return listeProduits;
-            })
-            .catch(erreur => {
-                throw erreur
-            });
+
     }
 
+    //Méthode dédiée à l'affichage du panier sur la page du panier
     afficherPanier(pkPanier, produits) {
         let prixTotal = 0;
         produits.forEach(produit => {
@@ -104,6 +76,7 @@ class PanierCtrl {
         `);   
     }
 
+    //Méthode dédiée à l'affichage d'un message spécifique en cas de panier vide
     afficherPanierVide(){
         $(".liste-vide-container").append(`
             <p class="liste-vide-text">Votre Panier est vide...</p>

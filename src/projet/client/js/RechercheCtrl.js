@@ -12,27 +12,11 @@ class RechercheCtrl {
         checkUser();
     }
 
-
+    //Méthode dédiée à l'initialisation du contrôleur
     initialiser(query, selectedFilter) {
-        this.updateSearchBar(query);
-        this.updateFilters(selectedFilter);
-        this.chargerProduits(query, [])
-            .then((produits) => {
-                if (produits.length !== 0) {
-                    this.afficherProduits(produits)
-                } else {
-                    this.afficherAucunProduit();
-                }
-            })
-            .catch((erreur) => {
-                alert("Un problème est survenu lors du chargement des produits : \n" + erreur);
-            });
-    }
 
-    updateSearchBar(query) {
-        $('.search-bar').val(query)
     }
-
+    //Méthode dédiée à la mise à jour des filtres
     updateFilters(selectedFilter) {
         if (selectedFilter === 'all') {
             $('#recherche-filtres-container .filtre-checkbox').each(function () {
@@ -45,32 +29,12 @@ class RechercheCtrl {
         }
     }
 
+    //Méthode dédiée à la récupération des produits
     chargerProduits(query, unSelectedFilter) {
-        let unSelectedFilterQuery = ``;
-        if (unSelectedFilter.length > 0){
-            unSelectedFilterQuery = `&disabledFilters=`;
-            unSelectedFilter.forEach(filter => {
-                unSelectedFilterQuery += filter + ",";
-            });
-        }
         
-        
-        let url = `../serveur/serveur.php?query=${query}${unSelectedFilterQuery}`;
-        return httpService.fetchGet(url)
-            .then(data =>{
-                let listeProduits = [];
-                data.results.forEach(produit => {
-                    if (produit.nom != ''){
-                        listeProduits.push(produit);
-                    }
-                });
-                return listeProduits;
-            })
-            .catch(erreur =>{
-                throw erreur
-            });
     }
 
+    //Méthode dédiée à l'affichage des produits
     afficherProduits(produits) {
         produits.forEach(produit => {
             let nom = produit.nom;
@@ -97,6 +61,7 @@ class RechercheCtrl {
         });
     }
 
+    //Méthode dédiée à l'affichage d'un message spécifique en cas d'absence de produits
     afficherAucunProduit() {
         $(`#recherche-boissons-container`).append(`
             <div class="liste-vide-container">

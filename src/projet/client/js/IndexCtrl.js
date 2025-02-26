@@ -1,3 +1,11 @@
+
+$().ready(function () {
+    httpService = new HttpService();
+    indexCtrl = new IndexCtrl();  
+    loginCtrl = new LoginCtrl();
+    creationCompteCtrl = new CreationCompteCtrl();
+    
+}); 
 /*
  * @class
  * @classdesc Cette classe fait office de contrôleur pour l'index de l'application
@@ -5,22 +13,10 @@
  * @author Tsvetoslav Petrov
  * @since 23.02.2025
 */
-$().ready(function () {
-    httpService = new HttpService();
-    // service et indexCtrl sont des variables globales qui doivent être accessible depuis partout => pas de mot clé devant ou window.xxx
-    indexCtrl = new IndexCtrl();  // ctrl principal
-    loginCtrl = new LoginCtrl();
-    creationCompteCtrl = new CreationCompteCtrl();
-    
-}); 
-
 class IndexCtrl {
     constructor() {
         this.vue = new VueService();
         this.loadAccueil();
-        
-        
-
     }
 
     //charge la page d'accueil
@@ -66,17 +62,20 @@ class IndexCtrl {
         window.scrollTo(0, 0);
     }
 
+    //vérifie le type d'utilisateur
     checkUser() {
         httpService.checkUser(checkUserSuccess, checkUserError);
     }
 }
 
+//Fonction chargée de vérifier si la touche pressée est "Enter" et si la barre de recherche n'est pas vide
 function checkPress(event) {
     if (event.key == "Enter" && $('.search-bar').val() !== "") {
         indexCtrl.loadRecherche($('.search-bar').val(), 'all');
     }
 }
 
+//Fonction exécutée en cas de succès de la vérification du type d'utilisateur
 function checkUserSuccess(response) {
 
     let currUser = "";
@@ -127,7 +126,7 @@ function checkUserSuccess(response) {
     }
 }
 
-
+//Fonction exécutée en cas d'échec de la vérification du type d'utilisateur
 function checkUserError(request, status, error) {
     alert(error.message);
 }

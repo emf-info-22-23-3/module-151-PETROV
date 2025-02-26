@@ -12,40 +12,17 @@ class CommandesCtrl {
         checkUser();
     }
 
-
+    //Méthode dédiée à l'initialisation du contrôleur
     initialiser() {
-        this.chargerCommandes()
-            .then(commandes => {
-                if (commandes.length !== 0) {
-                    this.afficherCommandes(commandes)
-                } else {
-                    this.afficherAucuneCommande();
-                }
-            })
-            .catch((erreur) => {
-                alert("Un problème est survenu lors du chargement des commandes : \n" + erreur);
-            });
+        
     }
 
+    //Méthode dédiée au chargement des commandes
     chargerCommandes() {
-        let url = "https://api.themoviedb.org/3/trending/movie/day?api_key=526e37e9209768bacef81555818cbea5&language=fr-FR";
-        return httpService.fetchGet(url)
-            .then(data => {
-                let listeCommandes = [];
-                if (data.results != undefined) {
-                    data.results.forEach(commande => {
-                        if (commande.pk != undefined) {
-                            listeCommandes.push(commande);
-                        }
-                    });
-                }
-                return listeCommandes;
-            })
-            .catch(erreur => {
-                throw erreur
-            });
+        
     }
 
+    //Méthode dédiée à l'affichage des commandes sur la page des commandes
     afficherCommandes(commandes) {
         commandes.forEach(commande => {
             let pk = commande.nom;
@@ -72,6 +49,7 @@ class CommandesCtrl {
         }
     }
 
+    //Méthode dédiée à l'affichage d'un message spécifique en cas d'absence de commandes
     afficherAucuneCommande() {
         $(".liste-vide-container").append(`
        <p class="liste-vide-text">La liste de commandes est vide...</p>

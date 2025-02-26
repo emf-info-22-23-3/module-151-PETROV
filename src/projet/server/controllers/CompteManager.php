@@ -15,7 +15,7 @@ class CompteManager
 
     public function checkLogin($username, $password){
         $compteDBManager = new CompteDBManager();
-        $compte = $compteDBManager->checkLogin($username, $password);
+        $compte = $compteDBManager->checkLogin($username, password_hash($password, PASSWORD_DEFAULT));
         return $compte;
     }
 }

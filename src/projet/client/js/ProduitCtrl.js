@@ -13,37 +13,17 @@ class ProduitCtrl {
         checkUser();
     }
 
-
+    //Méthode dédiée à l'initialisation du contrôleur
     initialiser(pkBoisson) {
-        this.chargerBoisson(pkBoisson)
-            .then(boisson => {
-                this.afficherBoisson(boisson);
-            })
-            .catch((erreur) => {
-                alert("Un problème est survenu lors du chargement du produit : \n" + erreur);
-            });
+
     }
 
+    //Méthode dédiée au chargement de la boisson
     chargerBoisson(pkBoisson){
-        let url = "https://api.themoviedb.org/3/trending/movie/day?api_key=526e37e9209768bacef81555818cbea5&language=fr-FR";
-        return httpService.fetchGet(url)
-            .then(data => {
-                return {
-                    nom : data.nom,
-                    quantite : data.quantite,
-                    quantiteDisponible : data.quantiteDisponible,
-                    prix : data.prix,
-                    informations : data.informations,
-                    ingredients : data.ingredients,
-                    producteur : data.producteur,
-                    region : data.region,
-                }
-            })
-            .catch(erreur => {
-                throw erreur;
-            });
+
     }
 
+    //Méthode dédiée à l'affichage de la boisson sur la page du produit
     afficherBoisson(boisson){
         let nom  = boisson.nom;
         let image = "/images/boissons/" + nom;
@@ -106,6 +86,7 @@ class ProduitCtrl {
     
 }
 
+//Fonction chargée de diminuer la quantité sélectionnée d'un produit
 function diminuerQuantite(elementCible, id){
     let val = 0;
     if (id !== undefined){
@@ -119,7 +100,7 @@ function diminuerQuantite(elementCible, id){
     $(elementCible).text(val)
 }
 
-
+//Fonction chargée d'augmenter la quantité sélectionnée d'un produit
 function augmenterQuantite(elementCible, id){
     let val = 0;
     if (id !== undefined){

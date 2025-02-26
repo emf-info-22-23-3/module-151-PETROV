@@ -11,15 +11,15 @@ class AccueilCtrl {
         this.initialiser();
     }
 
+    //Méthode dédiée à l'initialisation du contrôleur
+    initialiser() { }
 
-    initialiser() {
-
-    }
-
+    //Méthode dédiée au chargement des soldes
     chargerSoldes() {
 
     }
 
+    //Méthode dédiée à l'affichage des soldes dur la page d'accueil
     afficherSoldes(soldes) {
         soldes.forEach(produit => {
             let nom = produit.nom;
@@ -46,6 +46,7 @@ class AccueilCtrl {
         });
     }
 
+    //Méthode dédiée à l'affichage d'un message spécifique en cas d'absence de soldes
     afficherAucunSoldes() {
         $(`#liste-promotions-container`).append(`
             <p class="liste-vide-text" style="padding-left: 30px;">Aucune promotion n'est disponible actuellement...</p>

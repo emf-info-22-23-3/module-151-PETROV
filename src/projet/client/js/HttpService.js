@@ -7,27 +7,10 @@
  */
 
 let url = "http://localhost:8080/projet/server/server.php";
-
 class HttpService {
     constructor() { }
 
-    /*
-    **  $.ajaxSetup permet de définir une fois un élément sans le refaire par la suite.
-    
-    fetchGet(url) {
-        return fetch(url)
-            .then(resultat => { console.log(resultat);
-                if (resultat !== null) { 
-                    throw new Error(`Error ${resultat.status}: ${resultat.statusText}`);
-                }
-                return resultat.json();
-            })
-            .catch(error => {
-                this.centraliserErreurHttp(error);
-            });
-    }*/
-
-
+    //Méthode dédiée à la requête de login
     login(username, password, successCallback, errorCallback) {
       $.ajax({
         url: url,
@@ -43,6 +26,7 @@ class HttpService {
       });
     }
 
+    //Méthode dédiée à la requête de vérification du type d'utilisateur
     checkUser(successCallback, errorCallback){
         $.ajax({
             url: url + "?action=checkUser",
@@ -54,6 +38,7 @@ class HttpService {
           });
     }
 
+    //Méthode dédiée à la requête de création de compte
     creerCompte(username, password, passwordConfirm, successCallback, errorCallback) {  
         $.ajax({
           url: url,
@@ -65,6 +50,7 @@ class HttpService {
         });
       }
 
+      //Méthode dédiée à la requête de déconnexion
       deconnecter(successCallback, errorCallback) {  
         $.ajax({
           url: url,

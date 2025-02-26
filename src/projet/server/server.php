@@ -8,7 +8,7 @@ require_once 'controllers/RechercheManager.php';
 require_once 'beans/Compte.php';
 require_once 'beans/Boisson.php';
 
-echo session_id();
+
 $action = "";
 if (isset($_POST["action"])) {
     $action = $_POST["action"];

@@ -50,7 +50,7 @@ class BoissonDBManager
     public function getBoissonsEnSoldes()
     {
         $boissons = array();
-        $query = "SELECT * FROM T_Boisson WHERE est_en_solde = 1";
+        $query = "SELECT * FROM T_Boisson WHERE est_en_solde = 1 AND quantite_disponible > 0";
         $params = [];
         $resultats = $this->connexion->selectQuery($query, $params);
         foreach ($resultats as $resultat) {

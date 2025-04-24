@@ -16,6 +16,7 @@ class RechercheDBManager
 
         //On ajoute un tableau de conditions WHERE
         $whereConditions = [];
+        $whereConditions[] = "boissons.quantite_disponible > 0"; //On ne prend que les boissons disponibles
 
         //Recherche par nom
         if (!empty($searchQuery) && $searchQuery !== '') {

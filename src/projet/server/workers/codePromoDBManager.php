@@ -9,7 +9,7 @@ class CodePromoDBManager
     }
 
     public function checkCodePromo($code_promo){
-        $query = "SELECT * FROM T_Code_reduction WHERE valeur = ?";
+        $query = "SELECT * FROM T_Code_reduction WHERE valeur = ? AND fk_panier IS NULL";
         $params = [$code_promo];
         $resultat = $this->connexion->selectSingleQuery($query, $params);
         return $resultat;

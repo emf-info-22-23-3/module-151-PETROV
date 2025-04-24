@@ -66,6 +66,16 @@ class ProduitCtrl {
             quantiteDisponible = "0";
         }
 
+        if (quantiteDisponible === 0) {
+            $(`.select-quantite-panier-button`).prop("disabled", true);
+            $(`.select-quantite-panier-button`).css("background-color", "grey");
+            $(`.select-quantite-panier-button`).css("cursor", "not-allowed");
+            $(`#quantite-disponible-text`).css("color", "red");
+            $(`#quantite-disponible-text`).text("Produit non disponible");
+            $(`.select-quantite-button`).prop("disabled", true);
+            $(`.select-quantite-text`).text("-");
+        }
+
         if (informations === null || informations === "") {
             informations = "Aucune information n'est disponible pour ce produit.";
             $(`#achat-boisson-informations`).css("font-style", "italic");

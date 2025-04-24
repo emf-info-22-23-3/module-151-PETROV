@@ -14,12 +14,23 @@ class RechercheCtrl {
 
     //Méthode dédiée à l'initialisation du contrôleur
     initialiser(query, vinsFilter, bieresFilter, spiritueuxFilter, noAlcoolFilter, order, onlyPromotions) {
+        $(`.search-bar`).val(query);
         $('.filtre-checkbox[name="Vins"]').prop('checked', vinsFilter);
         $('.filtre-checkbox[name="Bieres"]').prop('checked', bieresFilter);
         $('.filtre-checkbox[name="Spiritueux"]').prop('checked', spiritueuxFilter);
         $('.filtre-checkbox[name="Sans alcool"]').prop('checked', noAlcoolFilter);
+        $('#tri-combobox').val(order);  
+        $('input[name="Promotions"]').prop('checked', onlyPromotions);
         httpService.effectuerRecherche(query, vinsFilter, bieresFilter, spiritueuxFilter, noAlcoolFilter, order, onlyPromotions,
             this.effectuerRechercheSuccess.bind(this), this.effectuerRechercheError.bind(this));
+        $(`#recherche-application-button`).on("click", () => {
+            indexCtrl.loadRecherche($(`.search-bar`).val(), $('input[name="Vins"]').is(':checked'), $('input[name="Bieres"]').is(':checked'), $('input[name="Spiritueux"]').is(':checked'), $('input[name="Sans alcool"]').is(':checked'), $('#tri-combobox').val(), $('input[name="Promotions"]').is(':checked'));
+        });
+        $(`.search-bar`).on("keypress", (event) => {
+            if (event.key === "Enter") {
+                indexCtrl.loadRecherche($(`.search-bar`).val(), $('input[name="Vins"]').is(':checked'), $('input[name="Bieres"]').is(':checked'), $('input[name="Spiritueux"]').is(':checked'), $('input[name="Sans alcool"]').is(':checked'), $('#tri-combobox').val(), $('input[name="Promotions"]').is(':checked'));
+            }
+        });
     }
     //Méthode dédiée à la mise à jour des filtres
     //updateFilters(selectedFilter) {
@@ -54,7 +65,7 @@ class RechercheCtrl {
             let nom = produit.nom;
             let quantite = produit.quantite;
             let prix = produit.prix;
-            let pk = produit.pk
+            let pk = produit.pk_boisson;
             let imageBase64;
             if (produit.image) {
                 imageBase64 = "data:image/jpeg;base64," + produit.image;
@@ -64,7 +75,7 @@ class RechercheCtrl {
             }
 
             let textColor = "black";
-            if (produit.estEnSolde) {
+            if (produit.est_en_solde) {
                 textColor = "rgb(255, 0, 119)";
             }
 

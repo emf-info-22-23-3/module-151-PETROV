@@ -10,54 +10,42 @@ class RechercheDBManager
     public function effectuerRecherche($searchQuery, $vinsFilter, $bieresFilter, $spiritueuxFilter, $noAlcoolFilter, $order, $onlyPromotions)
     {
         $boissons = [];
-
-        // Étape 1 : Détermination des assortiments à INCLURE (logique inversée)
-        $includedAssortiments = [];
-        if ($vinsFilter) {
-            $includedAssortiments[] = 'Vins';
-        }
-        if ($bieresFilter) {
-            $includedAssortiments[] = 'Bières / Cidres';
-        }
-        if ($spiritueuxFilter) {
-            $includedAssortiments[] = 'Spiritueux';
-        }
-        if ($noAlcoolFilter) {
-            $includedAssortiments[] = 'Sans Alcool';
-        }
-
-        // Étape 2 : Requête de base
-        $query = "SELECT DISTINCT boissons.*
-        FROM T_Boisson boissons
-        LEFT JOIN TR_Boisson_Assortiment tba ON boissons.pk_boisson = tba.fk_boisson_assortiment
-        LEFT JOIN T_Assortiment assortiments ON tba.fk_assortiment = assortiments.pk_assortiment
-        WHERE 1=1
-    ";
-
+        //Requête de base sans filtres d'assortiment pour le moment
+        $query = "SELECT DISTINCT boissons.* FROM T_Boisson boissons";
         $params = [];
 
-        // Étape 3 : Filtres à inclure (approche différente)
-        if (!empty($includedAssortiments)) {
-            $placeholders = implode(',', array_fill(0, count($includedAssortiments), '?'));
-            $query .= " AND assortiments.nom IN ($placeholders)";
-            $params = array_merge($params, $includedAssortiments);
-        } else {
-            // Si aucun filtre n'est sélectionné, ne retourner aucun résultat
-            return [];
+        //On ajoute un tableau de conditions WHERE
+        $whereConditions = [];
+
+        //Recherche par nom
+        if (!empty($searchQuery) && $searchQuery !== '') {
+            //Séparation de la recherceh en plusieurs mots
+            $searchTerms = explode(' ', $searchQuery);
+            $searchConditions = [];
+
+            foreach ($searchTerms as $term) {
+                if (strlen(trim($term)) > 0) {
+                    $searchConditions[] = "boissons.nom LIKE ?";
+                    $params[] = '%' . trim($term) . '%';
+                }
+            }
+
+            if (!empty($searchConditions)) {
+                $whereConditions[] = '(' . implode(' AND ', $searchConditions) . ')';
+            }
         }
 
-        // Étape 4 : Recherche par nom
-        if (!empty($searchQuery)) {
-            $query .= " AND boissons.nom LIKE ?";
-            $params[] = '%' . $searchQuery . '%';
+        //Promotions
+        if ($onlyPromotions === 'true') {
+            $whereConditions[] = "boissons.est_en_solde = 1";
         }
 
-        // Étape 5 : Promotions
-        if ($onlyPromotions) {
-            $query .= " AND boissons.est_en_solde = 1";
+        //Ajout des conditions WHERE s'il y en a
+        if (!empty($whereConditions)) {
+            $query .= " WHERE " . implode(" AND ", $whereConditions);
         }
 
-        // Étape 6 : Tri (sécurisé)
+        //Tri
         switch ($order) {
             case 'alpha_asc':
                 $query .= " ORDER BY boissons.nom ASC";
@@ -74,9 +62,9 @@ class RechercheDBManager
             default:
                 $query .= " ORDER BY boissons.nom ASC";
         }
-
+        
         $resultats = $this->connexion->selectQuery($query, $params);
-
+        //Construction des objets Boisson
         if (is_array($resultats) && !empty($resultats)) {
             foreach ($resultats as $row) {
                 $boissons[] = new Boisson(
@@ -94,7 +82,36 @@ class RechercheDBManager
                 );
             }
         }
+
+        //Filtrage des boissons par assortiment
+        if ($vinsFilter !== 'true' || $bieresFilter !== 'true' || $spiritueuxFilter !== 'true' || $noAlcoolFilter !== 'true') {
+            $filteredBoissons = [];
+            foreach ($boissons as $boisson) {
+                $assortiment = $this->getAssortimentForBoissons($boisson->getPkboisson());
+                if (
+                    ($assortiment === 'Vins' && $vinsFilter === 'true') ||
+                    ($assortiment === 'Bières / Cidres' && $bieresFilter === 'true') ||
+                    ($assortiment === 'Spiritueux' && $spiritueuxFilter === 'true') ||
+                    ($assortiment === 'Sans Alcool' && $noAlcoolFilter === 'true')
+                ) {
+                    $filteredBoissons[] = $boisson;
+                }
+            }
+            $boissons = $filteredBoissons;
+        }
         return $boissons;
+    }
+
+    private function getAssortimentForBoissons($pk_boisson)
+    {
+        $query = "SELECT nom
+        FROM T_Assortiment assortiments
+        JOIN TR_Boisson_Assortiment tba ON assortiments.pk_assortiment = tba.fk_assortiment
+        WHERE tba.fk_boisson_assortiment = ?";
+
+        $params = [$pk_boisson];
+        $resultat = $this->connexion->selectSingleQuery($query, $params);
+        return $resultat ? $resultat['nom'] : '';
     }
 }
 ?>

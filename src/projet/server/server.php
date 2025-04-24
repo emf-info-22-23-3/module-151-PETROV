@@ -24,59 +24,6 @@ if (isset($_GET["action"])) {
 }
 
 switch ($action) {
-    /*case "recherche":
-        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            $query = '';
-            if (isset($_GET["query"])) {
-                $query = $_GET["query"];
-            }
-
-            $filtres = array("Vins", "Bières / Cidres", "Spiritueux", "Sans Alcool");
-            if (isset($_GET["disabledFilters"])) {
-                $filtresDesactives = $_GET["disabledFilters"];
-                $filtresDesactives = explode(',', $filtresDesactives);
-                $filtres = $filtresDesactives;
-            }
-
-            $ordre = "AZ";
-            if (isset($_GET["ordre"])) {
-                $ordre = $_GET["ordre"];
-                switch ($ordre) {
-                    case "AZ":
-                        $ordre = "boissons.nom ASC";
-                        break;
-                    case "ZA":
-                        $ordre = "boissons.nom DESC";
-                        break;
-                    case "PrixCroissant":
-                        $ordre = "prix ASC";
-                        break;
-                    case "PrixDecroissant":
-                        $ordre = "prix DESC";
-                        break;
-                    default:
-                        http_response_code(400);
-                        echo json_encode(array("resultat" => false, "error" => "Identifiants invalides"));
-                        exit;
-                }
-            }
-
-            $uniquementEnPromotion = false;
-            if (isset($_GET["uniquementEnPromotion"])) {
-                $ordre = $_GET["uniquementEnPromotion"];
-            }
-
-            $messageManager = new RechercheManager();
-            $boissons = $messageManager->getBoissons($query, $filtres, $ordre, $uniquementEnPromotion);
-            if (count($boissons) > 0) {
-                http_response_code(200);
-                echo json_encode(array("boissons" => $boissons));
-            } else {
-                http_response_code(404);
-                echo json_encode(array("error" => "Aucune boisson trouvée"));
-            }
-        }
-        break;*/
     case "recherche":
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             if (isset($_GET["query"]) && isset($_GET["vinsFilter"]) && isset($_GET["bieresFilter"]) && isset($_GET["spiritueuxFilter"]) && isset($_GET["noAlcoolFilter"]) && isset($_GET["order"]) && isset($_GET["onlyPromotions"])) {
@@ -99,6 +46,7 @@ switch ($action) {
                             "prix" => $boisson->getPrix(),
                             //Blob encodé en base64
                             "image" => $boisson->getImage(),
+                            "est_en_solde" => $boisson->getEstEnSolde(),
                         ];
                     }
                     http_response_code(200);

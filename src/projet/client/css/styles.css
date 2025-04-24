@@ -201,9 +201,9 @@ h2 {
 }
 
 .boisson-container {
-    width: 300px;
+    width: 340px;
     padding: 0;
-    box-shadow: 1px 3px 10px -5px rgba(0, 0, 0, 1);
+    box-shadow: 1px 1px 5px 5px rgba(0, 0, 0, 0.3);
     background-color: white;
     margin: 20px;
     display: inline-block;
@@ -217,22 +217,29 @@ h2 {
 }
 
 .boisson-image {
+    margin-top: 20px;
     width: 100%;
     height: 300px;
     object-fit: contain;
 }
 
 .boisson-informations-container {
-    padding-left: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
     font-weight: 700;
     margin-top: 30px;
     margin-bottom: 20px;
     text-align: left;
+    width: 100%;
 }
 
 .boisson-nom {
     margin: 0;
-    font-size: 16pt;
+    font-size: 15pt;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: calc(100% - 15pt);
 }
 
 .boisson-quantite {
@@ -348,7 +355,6 @@ footer {
 
 #achat-boisson-quantite {
     margin: 0;
-    ;
     font-size: 30pt;
     margin-bottom: 40px;
 }
@@ -360,12 +366,22 @@ footer {
     color: rgb(255, 0, 119);
 }
 
+#achat-boisson-informations,
+#achat-boisson-ingredients,
+#achat-boisson-producteur,
+#achat-boisson-region {
+    font-size: 18pt;
+    margin: 0;
+    margin-bottom: 40px;
+}
+
 #all-quantite-container {
     margin-left: 170px;
 }
 
 #quantite-disponible-text {
     font-weight: 600;
+    font-size: 16pt;
     margin: 0;
     margin-bottom: 8px;
 }
@@ -392,6 +408,7 @@ footer {
     padding-right: 40px;
     height: 100%;
     text-align: center;
+    font-size: 16pt;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -439,6 +456,7 @@ footer {
     height: 250px;
     display: flex;
     width: 100%;
+    min-width: 1130px;
     align-items: center;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -452,7 +470,7 @@ footer {
 
 .panier-produit-image {
     height: 100%;
-    width: 300px;
+    min-width: 300px;
     object-fit: contain;
 }
 
@@ -461,25 +479,44 @@ footer {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-width: 340px;
+    min-width: 700px;
+    gap: 10px;
 
 }
 
 .panier-produit-nom {
     margin: 0;
-    font-size: 30pt;
+    font-size: 34pt;
     font-weight: 700;
 }
 
 .panier-produit-quantite {
     margin: 0;
+    font-size: 20pt;
+}
+
+.panier-produit-prix-container {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: center;
+    min-width: 150px;
 }
 
 .panier-produit-prix {
     margin: 0;
-    font-size: 40pt;
+    font-size: 27pt;
     font-weight: 700;
-    color: rgb(255, 0, 119);
+    color: black;
+}
+
+.delete-item-container {
+    display: flex;
+    height: 100px;
+    min-width: 100px;
+    justify-content: center;
+    align-items: center;
+    margin-right: 100px;
 }
 
 .delete-item-panier-button {
@@ -492,10 +529,12 @@ footer {
     justify-content: center;
     align-items: center;
     display: flex;
+    transition: background-color 0.3s ease;
 }
 
 .delete-item-panier-button:hover {
     cursor: pointer;
+    background-color: #a8a8a8;
 }
 
 .delete-item-panier {
@@ -652,39 +691,100 @@ footer {
     display: flex;
     width: 100%;
     flex-direction: column;
-    gap: 30px;
+    gap: 70px;
 }
 
-.commande-container {
+.commande-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 640px;
+    box-shadow: 0px 0px 9px 1px rgba(0, 0, 0, 0.5);
+    font-size: 30pt;
+    font-weight: 700;
+    justify-content: center;
+    align-items: center;
+    border-left: solid 2px black;
+    border-top: solid 2px black;
+    border-right: solid 2px black;
+    border-bottom: solid 2px black;
+}
+
+.commande-infos-container {
     display: flex;
     flex-direction: row;
     width: 100%;
-    min-width: 640px;
-    height: 120px;
-    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 90px;
     font-size: 30pt;
     font-weight: 700;
     justify-content: space-between;
     align-items: center;
+    border-bottom: solid 2px black;
 }
 
-.commande-container p {
-    margin: 20px;
+.commande-id {
+    text-align: left;
+    font-size: 24pt;
+    font-weight: 700;
+    margin: 0;
+    margin-left: 20px;
+    min-width: 140px;
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.commande-form-container {
-    height: 70%;
-    width: 150px;
-    display: flex;
-    align-items: center;
-    margin: 20px;
+.commande-auteur {
+    text-align: left;
+    font-size: 24pt;
+    font-weight: 700;
+    margin: 0;
+    min-width: 400px;
+    max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.commande-prix {
+    text-align: left;
+    font-size: 24pt;
+    font-weight: 700;
+    margin: 0;
+    min-width: 300px;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.commande-code {
+    min-width: 460px;
+    max-width: 460px;
+    text-align: left;
+    font-size: 24pt;
+    font-weight: normal;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .commande-delete-button {
-    height: 100%;
-    width: 100%;
+    height: 65px;
+    width: 65px;
+    margin: 0;
+    margin-right: 20px;
     cursor: pointer;
     padding: 0;
+    background-color: #c2c0bf;
+    transition: background-color 0.3s ease;
+}
+
+.commande-delete-button:hover {
+    background-color: #a8a8a8;
 }
 
 .commande-delete-button-img {
@@ -695,11 +795,82 @@ footer {
     object-fit: contain;
 }
 
+.commande-boissons-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.commande-boisson{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 90px;
+    font-size: 30pt;
+    justify-content: space-between;
+    gap: 50px;
+    align-items: center;
+    border-bottom: solid 1px black;
+}
+
+.commande-boisson-quantite-choisie{
+    text-align: left;
+    font-size: 24pt;
+    font-weight: 700;
+    margin: 0;
+    margin-left: 20px;
+    min-width: 100px;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.commande-boisson-nom {
+    text-align: left;
+    font-size: 24pt;
+    font-weight: 700;
+    margin: 0;
+    min-width: 600px;
+    max-width: 600px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.commande-boisson-quantite{
+    text-align: left;
+    font-size: 24pt;
+    font-weight: normal;
+    color: rgb(161, 161, 161);
+    margin: 0;
+    min-width: 300px;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.commande-boisson-prix{
+    text-align: left;
+    font-size: 24pt;
+    font-weight: 700;
+    margin: 0;
+    margin-left: 30px;
+    min-width: 250px;
+    max-width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 #recherche-all-elements-container {
     display: flex;
     flex-direction: row;
     gap: 100px;
-    
+
 }
 
 #recherche-filtres-container {
@@ -707,10 +878,10 @@ footer {
     flex-direction: column;
     flex-grow: 1;
     gap: 20px;
-    
+
 }
 
-#filtres-titre{
+#filtres-titre {
     text-align: left;
     width: 100%;
     font-size: 25pt;

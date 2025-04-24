@@ -1,10 +1,6 @@
 <?php
-header("Access-Control-Allow-Origin: http://127.0.0.1:5501"); // Set to the exact frontend origin
-header("Access-Control-Allow-Credentials: true"); // Allow credentials (cookies, sessions, authentication)
-header("Access-Control-Allow-Methods: GET, POST"); // Allowed request methods
-header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Allowed headers
-session_start();
-   // var_dump();
+
+
 class SessionManager
 {
 
@@ -22,8 +18,6 @@ class SessionManager
     public function isConnected(){
         return isset($_SESSION["pk_compte"]);
     }
-
-  
 
     public function getPk()
     {

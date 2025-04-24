@@ -18,7 +18,11 @@ class BoissonManager
     }
 
     public function getQuantite($pk_boisson){
-        $this->boissonDBManager->getQuantite($pk_boisson);
+        return $this->boissonDBManager->getQuantite($pk_boisson);
+    }
+
+    public function getBoissonsEnSoldes(){
+        return $this->boissonDBManager->getBoissonsEnSoldes();
     }
 }
 

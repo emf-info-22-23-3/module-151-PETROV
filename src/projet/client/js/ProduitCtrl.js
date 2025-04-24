@@ -8,73 +8,88 @@
 
 class ProduitCtrl {
     constructor(pkBoisson) {
-        let currQuanity = 1;
+        indexCtrl.checkUser();
         this.initialiser(pkBoisson);
-        checkUser();
+
     }
 
     //Méthode dédiée à l'initialisation du contrôleur
     initialiser(pkBoisson) {
-
+        httpService.getBoisson(pkBoisson, this.chargerBoissonSuccess.bind(this), this.chargerBoissonError.bind(this));
     }
 
     //Méthode dédiée au chargement de la boisson
-    chargerBoisson(pkBoisson){
+    chargerBoissonSuccess(response) {
+        this.afficherBoisson(response.boisson);
+        $(`.select-quantite-panier-button`).on("click", () => {
+            const quantite = parseInt($('.select-quantite-text').text());
+            this.ajouteAuPanier(response.boisson.pk_boisson, quantite);
+        });
+    }
 
+    chargerBoissonError(request, status, error) {
+        //Gestion de l'erreur
+        alert("Erreur lors du chargement de la boisson : " +  JSON.parse(request.responseText).error);
+        indexCtrl.loadAccueil();
     }
 
     //Méthode dédiée à l'affichage de la boisson sur la page du produit
-    afficherBoisson(boisson){
-        let nom  = boisson.nom;
-        let image = "/images/boissons/" + nom;
+    afficherBoisson(boisson) {
+        let pk = boisson.pk_boisson;
+        let nom = boisson.nom;
+        let image = boisson.image;
         let prix = boisson.prix;
         let quantite = boisson.quantite;
-        let quantiteDisponible = boisson.quantiteDisponible;
+        let quantiteDisponible = boisson.quantite_disponible;
         let informations = boisson.informations;
         let ingredients = boisson.ingredients;
         let producteur = boisson.producteur;
         let region = boisson.region;
 
-
-        if (nom === undefined){
-            nom = "Produit non-trouvé";
+        let imageBase64;
+        if (boisson.image) {
+            imageBase64 = "data:image/jpeg;base64," + boisson.image;
+        } else {
+            // Si aucune image n'est disponible, utiliser une image par défaut
+            imageBase64 = "/images/no-image.webp";
         }
 
-        if (image === undefined){
-            image = "/images/no-image.webp";
+        if (nom === null) {
+            nom = "Nom de la boisson non disponible";
         }
 
-        if (prix === undefined){
-            prix = "0";
+        if (prix === null) {
+            prix = "0.00";
         }
 
-        if(quantiteDisponible === undefined){
+        if (quantiteDisponible === null) {
             quantiteDisponible = "0";
         }
 
-        if (informations === undefined){
+        if (informations === null || informations === "") {
             informations = "Aucune information n'est disponible pour ce produit.";
             $(`#achat-boisson-informations`).css("font-style", "italic");
         }
 
-        if (ingredients === undefined){
+        if (ingredients === null) {
             ingredients = "Aucune information concernant les ingrédients de ce produit n'est disponible.";
             $(`#achat-boisson-ingredients`).css("font-style", "italic");
         }
 
-        if (producteur === undefined){
+        if (producteur === null) {
             producteur = "Aucune information concernant les producteurs de ce produit n'est disponible.";
             $(`#achat-boisson-producteur`).css("font-style", "italic");
         }
 
-        if (region === undefined){
+        if (region === null) {
             region = "Aucune information concernant la provenance de ce produit n'est disponible.";
             $(`#achat-boisson-region`).css("font-style", "italic");
         }
 
-        $(`#achat-boisson-image`).prop("src", image);
+        $(`#achat-boisson-image`).prop("src", imageBase64);
+        $(`#achat-boisson-image`).prop("alt", nom);
         $(`#achat-boisson-nom`).append(nom);
-        $(`#achat-boisson-prix`).append("CHF " + prix +".-");
+        $(`#achat-boisson-prix`).append("CHF " + formatPrix(prix) + ".-");
         $(`#achat-boisson-quantite`).append(quantite);
         $(`#achat-boisson-quantite-disponible`).append(quantiteDisponible);
         $(`#achat-boisson-informations`).append(informations);
@@ -83,32 +98,50 @@ class ProduitCtrl {
         $(`#achat-boisson-region`).append(region);
     }
 
-    
+    ajouteAuPanier(pkBoisson, quantite) {
+        httpService.ajouteAuPanier(
+            pkBoisson,
+            quantite,
+            (response) => this.ajouterAuPanierSuccess(response, pkBoisson),
+            this.ajouterAuPanierError.bind(this)
+        );
+    }
+
+    //Va afficher un message de succès et recharger le produit avec la nouvelle quantité
+    ajouterAuPanierSuccess(response, pkBoisson) {
+        alert(response.message);
+        indexCtrl.loadProduit(pkBoisson);
+    }
+
+    //Va afficher un message d'erreur
+    ajouterAuPanierError(request, status, error) {
+        alert("Erreur lors de l'ajout au panier : " + JSON.parse(request.responseText).error);
+    }
 }
 
 //Fonction chargée de diminuer la quantité sélectionnée d'un produit
-function diminuerQuantite(elementCible, id){
+function diminuerQuantite(elementCible, id) {
     let val = 0;
-    if (id !== undefined){
+    if (id !== undefined) {
         val = parseInt($(`#${id}`).text());
     } else {
         val = parseInt($(elementCible).text());
     }
-    if (val > 1){
+    if (val > 1) {
         val -= 1;
     }
     $(elementCible).text(val)
 }
 
 //Fonction chargée d'augmenter la quantité sélectionnée d'un produit
-function augmenterQuantite(elementCible, id){
+function augmenterQuantite(elementCible, id) {
     let val = 0;
-    if (id !== undefined){
+    if (id !== undefined) {
         val = parseInt($(`#${id}`).text());
     } else {
         val = parseInt($(elementCible).text());
     }
-    if (val < parseInt($("#achat-boisson-quantite-disponible").text())){
+    if (val < parseInt($("#achat-boisson-quantite-disponible").text())) {
         val += 1;
     }
     $(elementCible).text(val)

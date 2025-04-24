@@ -7,32 +7,46 @@
 */
 
 class RechercheCtrl {
-    constructor(query, selectedFilter) {
-        this.initialiser(query, selectedFilter);
-        checkUser();
+    constructor(query, vinsFilter, bieresFilter, spiritueuxFilter, noAlcoolFilter, order, onlyPromotions) {
+        indexCtrl.checkUser();
+        this.initialiser(query, vinsFilter, bieresFilter, spiritueuxFilter, noAlcoolFilter, order, onlyPromotions);
     }
 
     //Méthode dédiée à l'initialisation du contrôleur
-    initialiser(query, selectedFilter) {
-
+    initialiser(query, vinsFilter, bieresFilter, spiritueuxFilter, noAlcoolFilter, order, onlyPromotions) {
+        $('.filtre-checkbox[name="Vins"]').prop('checked', vinsFilter);
+        $('.filtre-checkbox[name="Bieres"]').prop('checked', bieresFilter);
+        $('.filtre-checkbox[name="Spiritueux"]').prop('checked', spiritueuxFilter);
+        $('.filtre-checkbox[name="Sans alcool"]').prop('checked', noAlcoolFilter);
+        httpService.effectuerRecherche(query, vinsFilter, bieresFilter, spiritueuxFilter, noAlcoolFilter, order, onlyPromotions,
+            this.effectuerRechercheSuccess.bind(this), this.effectuerRechercheError.bind(this));
     }
     //Méthode dédiée à la mise à jour des filtres
-    updateFilters(selectedFilter) {
-        if (selectedFilter === 'all') {
-            $('#recherche-filtres-container .filtre-checkbox').each(function () {
-                $(this).prop('checked', true);
-            });
+    //updateFilters(selectedFilter) {
+    //    if (selectedFilter === 'all') {
+    //        $('#recherche-filtres-container .filtre-checkbox').each(function () {
+    //            $(this).prop('checked', true);
+    //        });
+    //    } else {
+    //        if (selectedFilter !== '') {
+    //            $(`[name=${selectedFilter}]`).prop(`checked`, true);
+    //        }
+    //    }
+    //}
+
+    effectuerRechercheSuccess(data) {
+        if (!data.empty) {
+            this.afficherProduits(data.boissons);
         } else {
-            if (selectedFilter !== '') {
-                $(`[name=${selectedFilter}]`).prop(`checked`, true);
-            }
+            this.afficherAucunProduit(data.message);
         }
     }
 
-    //Méthode dédiée à la récupération des produits
-    chargerProduits(query, unSelectedFilter) {
-        
+    effectuerRechercheError(request, status, error) {
+        alert("Erreur lors de la recherche : " + JSON.parse(request.responseText).error);
+        indexCtrl.loadAccueil();
     }
+
 
     //Méthode dédiée à l'affichage des produits
     afficherProduits(produits) {
@@ -41,7 +55,13 @@ class RechercheCtrl {
             let quantite = produit.quantite;
             let prix = produit.prix;
             let pk = produit.pk
-            let image = "/images/boissons/" + nom;
+            let imageBase64;
+            if (produit.image) {
+                imageBase64 = "data:image/jpeg;base64," + produit.image;
+            } else {
+                // Si aucune image n'est disponible, utiliser une image par défaut
+                imageBase64 = "/images/no-image.webp";
+            }
 
             let textColor = "black";
             if (produit.estEnSolde) {
@@ -50,11 +70,11 @@ class RechercheCtrl {
 
             $(`#recherche-boissons-container`).append(`
                 <a onclick="indexCtrl.loadProduit(${pk})" class="boisson-container">
-                <img class="boisson-image" src="${image}" alt="Boisson">
+                <img class="boisson-image" src="${imageBase64}" alt="Boisson">
                 <div class="boisson-informations-container">
                     <p class="boisson-nom">${nom}</p>
                     <p class="boisson-quantite">${quantite}</p>
-                    <p class="boisson-prix" style="color: ${textColor}">CHF ${prix}.-</p>
+                    <p class="boisson-prix" style="color: ${textColor}">CHF ${formatPrix(prix)}.-</p>
                 </div>
             </a>
                 `);
@@ -62,10 +82,10 @@ class RechercheCtrl {
     }
 
     //Méthode dédiée à l'affichage d'un message spécifique en cas d'absence de produits
-    afficherAucunProduit() {
+    afficherAucunProduit(message) {
         $(`#recherche-boissons-container`).append(`
             <div class="liste-vide-container">
-                <p class="liste-vide-text">Aucun résultat...</p>
+                <p class="liste-vide-text">${message}</p>
             </div>`);
     }
 }

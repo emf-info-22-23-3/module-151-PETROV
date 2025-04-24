@@ -12,33 +12,32 @@ class LoginCtrl {
     }
 
     //Méthode dédiée à l'initialisation du contrôleur
-    initialiser() {}
+    initialiser() { }
 
     //Méthode chargée de récpérer les informations du formulaire de connexion et de les envoyer au serveur
     login() {
         let username = $("input[name='username']").val();
         let password = $("input[name='password']").val();
-        httpService.login(username, password, loginSuccess, loginError); 
+        httpService.login(username, password, loginSuccess, loginError);
     }
 
     //Méthode chargée de déconnecter l'utilisateur
-    deconnecter(){
+    deconnecter() {
         httpService.deconnecter(deconnecterSuccess, deconnecterError);
     }
 }
 
 //Fonction chargée d'informer l'utilisateur de la réussite de la connexion
 function loginSuccess(response) {
-    if (response.resultat) {    
-        alert(response.success);
-        //indexCtrl.loadAccueil();
+    if (response.success) {
+        alert(response.message);
+        indexCtrl.loadAccueil();
     }
 }
 
 //Fonction chargée d'informer l'utilisateur de l'échec de la connexion
 function loginError(request, status, error) {
-    let response = JSON.parse(request.responseText);
-    alert(response.error);
+    alert("Erreur lors de la tentative de login : " + JSON.parse(request.responseText).error);
 }
 
 //Fonction chargée d'informer l'utilisateur de la réussite de la déconnexion

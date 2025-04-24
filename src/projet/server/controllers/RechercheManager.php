@@ -7,11 +7,10 @@ class RechercheManager
 
     }
 
-    public function getBoissons($query, $filtres, $ordre, $uniquementEnPromotion)
+    public function effectuerRecherche($query, $vinsFilter, $bieresFilter, $spiritueuxFilter, $noAlcoolFilter, $order, $onlyPromotions)
     {
         $rechercheDBManager = new RechercheDBManager();
-        return $rechercheDBManager->getBoissons($query, $filtres, $ordre, $uniquementEnPromotion);
-
+        return $rechercheDBManager->effectuerRecherche($query, $vinsFilter, $bieresFilter, $spiritueuxFilter, $noAlcoolFilter, $order, $onlyPromotions);
     }
 
 }

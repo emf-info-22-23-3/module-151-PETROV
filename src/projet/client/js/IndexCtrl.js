@@ -45,8 +45,8 @@ class IndexCtrl {
     }
 
     //charge la page de panier
-    loadPanier(pkPanier) {
-        this.vue.chargerVue("panier", () => new PanierCtrl(pkPanier));
+    loadPanier() {
+        this.vue.chargerVue("panier", () => new PanierCtrl());
         window.scrollTo(0, 0);
     }
     
@@ -57,8 +57,8 @@ class IndexCtrl {
     }
 
     //charge la page de recherche
-    loadRecherche(query, selectedFilter) {
-        this.vue.chargerVue("recherche", () => new RechercheCtrl(query, selectedFilter));
+    loadRecherche(query, vinsFilter, bieresFilter, spiritueuxFilter, noAlcoolFilter, order, onlyPromotions) {
+        this.vue.chargerVue("recherche", () => new RechercheCtrl(query, vinsFilter, bieresFilter, spiritueuxFilter, noAlcoolFilter, order, onlyPromotions));
         window.scrollTo(0, 0);
     }
 
@@ -71,7 +71,7 @@ class IndexCtrl {
 //Fonction chargée de vérifier si la touche pressée est "Enter" et si la barre de recherche n'est pas vide
 function checkPress(event) {
     if (event.key == "Enter" && $('.search-bar').val() !== "") {
-        indexCtrl.loadRecherche($('.search-bar').val(), 'all');
+        indexCtrl.loadRecherche($('.search-bar').val(), true, true, true, true, "alpha_asc", false);
     }
 }
 
@@ -79,7 +79,7 @@ function checkPress(event) {
 function checkUserSuccess(response) {
 
     let currUser = "";
-    if (!response.resultat) {
+    if (!response.estLogin) {
         currUser = "visiteur";
     } else {
         if (response.estAdmin){
@@ -129,4 +129,11 @@ function checkUserSuccess(response) {
 //Fonction exécutée en cas d'échec de la vérification du type d'utilisateur
 function checkUserError(request, status, error) {
     alert(error.message);
+}
+
+//Fonction dédiée à la mise en forme du prix avec séparateur de milliers et deux décimales
+function formatPrix(prix) {
+    let prixNombre = parseFloat(prix);
+    if (isNaN(prixNombre)) return "0.00"; // ou tu peux afficher un message d'erreur
+    return prixNombre.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, "'");
 }

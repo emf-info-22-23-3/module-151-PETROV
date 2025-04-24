@@ -12,25 +12,26 @@ class CreationCompteCtrl {
     }
 
     //Méthode dédiée à l'initialisation du contrôleur
-    initialiser() {}
+    initialiser() { }
 
     //Méthode chargée de récpérer les informations du formulaire de création de compte et de les envoyer au serveur
     pressCreerCompte() {
         let username = $("input[name='username']").val();
-        let password = $("#input[name='password']").val();
-        let passwordConfirm = $("#input[name='passwordConfirm']").val();
-        httpService.creerCompte(username, password, passwordConfirm, loginSuccess, loginError); 
+        let password = $("input[name='password']").val();
+        let passwordConfirm = $("input[name='passwordConfirm']").val();
+        httpService.creerCompte(username, password, passwordConfirm, this.creerCompteSuccess.bind(this), this.creerCompteeError.bind(this));
     }
+
+    //Fonction chargée d'informer l'utilisateur de la réussite de la création de compte
+    creerCompteSuccess(response) {
+        alert(response.message);
+        indexCtrl.loadLogin();
+    }
+
+    //Fonction chargée d'informer l'utilisateur de la réussite de la création de compte
+    creerCompteeError(request, status, error) {
+        alert("Erreur lors de la création du compte : " + JSON.parse(request.responseText).error);
+    }
+
 }
 
-//Fonction chargée d'informer l'utilisateur de la réussite de la création de compte
-function creationCompteSuccess(message) {
-    alert(message);
-    indexCtrl.loadLogin();
-}
-
-//Fonction chargée d'informer l'utilisateur de la réussite de la création de compte
-function creationCompteError(request, status, error) {
-    alert.log("Création de compte échoué");
-    console.log(request, status, error);
-}

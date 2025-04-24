@@ -47,16 +47,16 @@
         </div>
         <h1>Assortiments</h1>
         <div id="liste-assortiments-container">
-            <button class="assortiment-container" id="assortiment-vins-container" onclick='indexCtrl.loadRecherche("", "vins")'>
+            <button class="assortiment-container" id="assortiment-vins-container" onclick="indexCtrl.loadRecherche($('.search-bar').val(), true, false, false, false, 'alpha_asc', false);">
                 <p>Vins</p>
             </button>
-            <button class="assortiment-container" id="assortiment-bieres-container" onclick='indexCtrl.loadRecherche("", "bieres")'>
+            <button class="assortiment-container" id="assortiment-bieres-container" onclick="indexCtrl.loadRecherche($('.search-bar').val(), false, true, false, false, 'alpha_asc', false);">
                 <p>Bières et cidres</p>
             </button>
-            <button class="assortiment-container" id="assortiment-spiritueux-container" onclick='indexCtrl.loadRecherche("", "spiritueux")'>
+            <button class="assortiment-container" id="assortiment-spiritueux-container" onclick="indexCtrl.loadRecherche($('.search-bar').val(), false, false, true, false, 'alpha_asc', false);">
                 <p>Spiritueux</p>
             </button>
-            <button class="assortiment-container" id="assortiment-sans-alcool-container" onclick='indexCtrl.loadRecherche("", "sans-alcool")'>
+            <button class="assortiment-container" id="assortiment-sans-alcool-container" onclick="indexCtrl.loadRecherche($('.search-bar').val(), false, false, false, true, 'alpha_asc', false);">
                 <p>Boissons non-alcoolisées</p>
             </button>
         </div>

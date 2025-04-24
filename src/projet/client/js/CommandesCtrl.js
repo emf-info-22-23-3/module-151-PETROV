@@ -8,45 +8,95 @@
 
 class CommandesCtrl {
     constructor() {
+        indexCtrl.checkUser();
         this.initialiser();
-        checkUser();
+
     }
 
     //Méthode dédiée à l'initialisation du contrôleur
     initialiser() {
-        
+        httpService.getCommandes(this.getCommandesSuccess.bind(this), this.getCommandesError.bind(this));
     }
 
-    //Méthode dédiée au chargement des commandes
-    chargerCommandes() {
-        
+    deleteCommande(pk_panier) {
+        httpService.deleteCommande(pk_panier, this.deleteCommandeSuccess.bind(this), this.deleteCommandeError.bind(this));
     }
+
+    deleteCommandeSuccess(response) {
+        alert(response.message);
+        indexCtrl.loadCommandes();
+    }
+
+    deleteCommandeError(request, status, error) {
+        //Gestion de l'erreur
+        alert("Erreur lors de la suppression de la commande : " + JSON.parse(request.responseText).error);
+        indexCtrl.loadCommandes();
+    }
+
+    getCommandesSuccess(data) {
+        if (!data.empty) {
+            this.afficherCommandes(data.commandes);
+            const self = this; // Sauvegarde une référence à l'objet parent
+            $(`.commande-delete-button`).on("click", function () {
+                const pk_panier = $(this).closest(".commande-container").attr("id");
+                self.deleteCommande(pk_panier); // Utilise self pour appeler la méthode
+            });
+        } else {
+            this.afficherAucuneCommande();
+        }
+    }
+
+    getCommandesError(request, status, error) {
+        //Gestion de l'erreur
+        alert("Erreur lors du chargement des commandes : " + JSON.parse(request.responseText).error);
+        indexCtrl.loadAccueil();
+    }
+
 
     //Méthode dédiée à l'affichage des commandes sur la page des commandes
     afficherCommandes(commandes) {
         commandes.forEach(commande => {
-            let pk = commande.nom;
-            let utilisateur = commande.utilisateur;
-            //A completer
-            let prix = 0;
+            let pk_commande = commande.pk_panier;
+            let auteur = commande.auteur;
+            let prix_total = commande.prix_total_panier;
+            let code_promo = commande.code_promo;
+            if (code_promo == false) {
+                code_promo = "Aucun";
+            }
+            let boissonsHtml = '';
+            commande.boissons.forEach(boisson => {
+                let quantite_choisie_boisson = boisson.quantite_choisie;
+                let nom_boisson = boisson.nom;
+                let quantite_boisson = boisson.quantite;
+                let prix_boisson = boisson.prix;
 
-            $("#liste-panier-container").append(`
-                <div class="commande-container">
-                    <p class="commande-id">ID : 59</p>
-                    <p class="commande-auteur">Par : PetrovT</p>
-                    <p class="commande-prix">CHF 50.40.-</p>
-                    <form action="" method="" class="commande-form-container">
+                boissonsHtml += `
+                    <div class="commande-boisson">
+                        <p class="commande-boisson-quantite-choisie">${quantite_choisie_boisson}x</p>
+                        <p class="commande-boisson-nom">${nom_boisson}</p>
+                        <p class="commande-boisson-quantite">${quantite_boisson}</p>
+                        <p class="commande-boisson-prix">CHF ${formatPrix(prix_boisson)}.-</p>
+                    </div>`;
+            });
+
+
+            $("#liste-commandes-container").append(`
+                <div class="commande-container" id="${pk_commande}">
+                    <div class="commande-infos-container">
+                        <p class="commande-id">ID : ${pk_commande}</p>
+                        <p class="commande-auteur">Par : ${auteur}</p>
+                        <p class="commande-prix">CHF ${formatPrix(prix_total)}.-</p>
+                        <p class="commande-code">Code utilisé : ${code_promo}</p>
                         <button class="commande-delete-button">
                             <img class="commande-delete-button-img" src="/images/poubelle.png" alt="delete">
                         </button>
-                    </form>
+                    </div>
+                    <div class="commande-boissons-container">
+                    ${boissonsHtml}
+                    </div>
                 </div>
             `);
         });
-
-        if (isNaN(prixTotal)) {
-            prixTotal = "0.00";
-        }
     }
 
     //Méthode dédiée à l'affichage d'un message spécifique en cas d'absence de commandes

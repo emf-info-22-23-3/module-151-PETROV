@@ -1,6 +1,6 @@
 <?php
 session_start();
-header("Access-Control-Allow-Origin: http://127.0.0.1:5501"); // or your actual frontend domain
+header("Access-Control-Allow-Origin: http://127.0.0.1:5501");
 header("Access-Control-Allow-Methods: GET, POST, DELETE,OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Credentials: true");
@@ -66,7 +66,6 @@ switch ($action) {
             $sessionManager = new SessionManager();
 
             if (!$sessionManager->isConnected()) {
-
                 if (!isset($_POST['username']) || !isset($_POST['password']) || empty(trim($_POST['username'])) || empty(trim($_POST['password']))) {
                     http_response_code(400);
                     echo json_encode(array("error" => "Champ(s) vides"));

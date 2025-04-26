@@ -18,7 +18,7 @@ class LoginCtrl {
     login() {
         let username = $("input[name='username']").val();
         let password = $("input[name='password']").val();
-        httpService.login(username, password, loginSuccess, loginError);
+        httpService.login(username, password, this.loginSuccess.bind(this), this.loginError.bind(this));
     }
 
     //Méthode exécutée en cas de succès de la connexion

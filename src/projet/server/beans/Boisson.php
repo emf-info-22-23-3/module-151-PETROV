@@ -1,23 +1,27 @@
 <?php
 
+
+/**
+ * Class Boisson
+ * 
+ * Représente une boisson avec ses attributs.
+ */
 class Boisson
 {
 
     private $pk_boisson;
-
     private $nom;
     private $quantite;
-
     private $prix;
     private $image;
     private $quantiteDisponible;
-
     private $estEnSolde;
     private $informations;
     private $ingredients;
     private $producteur;
     private $region;
 
+    //Constructeur de la classe Boisson
     public function __construct($pk_boisson = null, $nom = null, $quantite = null, $prix = null, $image = null, $quantiteDisponible = null, $estEnSolde = null, $informations = null, $ingredients = null, $producteur = null, $region = null)
     {
         $this->pk_boisson = $pk_boisson;
@@ -32,14 +36,11 @@ class Boisson
         $this->producteur = $producteur;
         $this->region = $region;
     }
+
+    //Getters
     public function getPkboisson()
     {
         return $this->pk_boisson;
-    }
-
-    public function setPkboisson($pk_boisson)
-    {
-        $this->pk_boisson = $pk_boisson;
     }
 
     public function getNom()
@@ -47,18 +48,9 @@ class Boisson
         return $this->nom;
     }
 
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
-    }
-
     public function getQuantite()
     {
         return $this->quantite;
-    }
-    public function setQuantite($quantite)
-    {
-        $this->quantite = $quantite;
     }
 
     public function getPrix()
@@ -66,35 +58,14 @@ class Boisson
         return $this->prix;
     }
 
-    public function setPrix($prix)
-    {
-        $this->prix = $prix;
-    }
-
     public function getImage()
     {
         return $this->image;
-    }
-    public function setImage($image)
-    {
-        $this->image = $image;
     }
 
     public function getQuantiteDisponible()
     {
         return $this->quantiteDisponible;
-    }
-    public function setQuantiteDisponible($quantiteDisponible)
-    {
-        $this->quantiteDisponible = $quantiteDisponible;
-    }
-
-    public function getEstEnSolde(){
-        return $this->estEnSolde;
-    }
-
-    public function setEstEnSolde($estEnSolde){
-        $this->estEnSolde = $estEnSolde;
     }
 
     public function getInformations()
@@ -102,9 +73,8 @@ class Boisson
         return $this->informations;
     }
 
-    public function setInformations($informations)
-    {
-        $this->informations = $informations;
+    public function getEstEnSolde(){
+        return $this->estEnSolde;
     }
 
     public function getIngredients()
@@ -112,25 +82,66 @@ class Boisson
         return $this->ingredients;
     }
 
-    public function setIngredients($ingredients)
-    {
-        $this->ingredients = $ingredients;
-    }
-
     public function getProducteur()
     {
         return $this->producteur;
-    }
-
-    public function setProducteur($producteur)
-    {
-        $this->producteur = $producteur;
     }
 
     public function getRegion()
     {
         return $this->region;
     }
+
+
+    //Setters
+    public function setPkboisson($pk_boisson)
+    {
+        $this->pk_boisson = $pk_boisson;
+    }
+
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+    }
+    
+    public function setQuantite($quantite)
+    {
+        $this->quantite = $quantite;
+    }
+
+    public function setPrix($prix)
+    {
+        $this->prix = $prix;
+    }
+
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+    public function setQuantiteDisponible($quantiteDisponible)
+    {
+        $this->quantiteDisponible = $quantiteDisponible;
+    }
+
+    public function setEstEnSolde($estEnSolde){
+        $this->estEnSolde = $estEnSolde;
+    }
+
+    public function setInformations($informations)
+    {
+        $this->informations = $informations;
+    }
+
+    public function setIngredients($ingredients)
+    {
+        $this->ingredients = $ingredients;
+    }
+
+    public function setProducteur($producteur)
+    {
+        $this->producteur = $producteur;
+    } 
 
     public function setRegion($region)
     {

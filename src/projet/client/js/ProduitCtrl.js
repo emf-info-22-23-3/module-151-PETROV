@@ -5,21 +5,20 @@
  * @author Tsvetoslav Petrov
  * @since 23.02.2025
 */
-
 class ProduitCtrl {
+    //Constructeur de la classe ProduitCtrl
     constructor(pkBoisson) {
         indexCtrl.checkUser();
         this.initialiser(pkBoisson);
-
     }
 
     //Méthode dédiée à l'initialisation du contrôleur
     initialiser(pkBoisson) {
-        httpService.getBoisson(pkBoisson, this.chargerBoissonSuccess.bind(this), this.chargerBoissonError.bind(this));
-    }
+        httpService.getBoisson(pkBoisson, this.ess.bind(this), this.getBoissonError.bind(this));
+    }getBoissonSucc
 
-    //Méthode dédiée au chargement de la boisson
-    chargerBoissonSuccess(response) {
+    //Méthode exécutée en cas de succès de la récupération de la boisson
+    getBoissonSuccess(response) {
         this.afficherBoisson(response.boisson);
         $(`.select-quantite-panier-button`).on("click", () => {
             const quantite = parseInt($('.select-quantite-text').text());
@@ -27,8 +26,8 @@ class ProduitCtrl {
         });
     }
 
-    chargerBoissonError(request, status, error) {
-        //Gestion de l'erreur
+    //Méthode exécutée en cas d'échec de la récupération de la boisson
+    getBoissonError(request, status, error) {
         alert("Erreur lors du chargement de la boisson : " +  JSON.parse(request.responseText).error);
         indexCtrl.loadAccueil();
     }
@@ -45,12 +44,10 @@ class ProduitCtrl {
         let ingredients = boisson.ingredients;
         let producteur = boisson.producteur;
         let region = boisson.region;
-
         let imageBase64;
         if (boisson.image) {
             imageBase64 = "data:image/jpeg;base64," + boisson.image;
         } else {
-            // Si aucune image n'est disponible, utiliser une image par défaut
             imageBase64 = "/images/no-image.webp";
         }
 
@@ -108,6 +105,7 @@ class ProduitCtrl {
         $(`#achat-boisson-region`).append(region);
     }
 
+    //Méthode chargée d'ajouter la boisson au panier
     ajouteAuPanier(pkBoisson, quantite) {
         httpService.ajouteAuPanier(
             pkBoisson,
@@ -117,13 +115,13 @@ class ProduitCtrl {
         );
     }
 
-    //Va afficher un message de succès et recharger le produit avec la nouvelle quantité
+    //Méthode exécutée en cas de succès de l'ajout au panier
     ajouterAuPanierSuccess(response, pkBoisson) {
         alert(response.message);
         indexCtrl.loadProduit(pkBoisson);
     }
 
-    //Va afficher un message d'erreur
+    //Méthode exécutée en cas d'échec de l'ajout au panier
     ajouterAuPanierError(request, status, error) {
         alert("Erreur lors de l'ajout au panier : " + JSON.parse(request.responseText).error);
     }

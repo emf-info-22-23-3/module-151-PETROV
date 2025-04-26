@@ -7,6 +7,7 @@
 */
 
 class CommandesCtrl {
+    //Constructeur de la classe CommandesCtrl
     constructor() {
         indexCtrl.checkUser();
         this.initialiser();
@@ -18,36 +19,39 @@ class CommandesCtrl {
         httpService.getCommandes(this.getCommandesSuccess.bind(this), this.getCommandesError.bind(this));
     }
 
+    //Méthode dédiée à la suppression d'une commande
     deleteCommande(pk_panier) {
         httpService.deleteCommande(pk_panier, this.deleteCommandeSuccess.bind(this), this.deleteCommandeError.bind(this));
     }
 
+    //Méthode exécutée en cas de succès de la suppression d'une commande
     deleteCommandeSuccess(response) {
         alert(response.message);
         indexCtrl.loadCommandes();
     }
 
+    //Méthode exécutée en cas d'échec de la suppression d'une commande
     deleteCommandeError(request, status, error) {
-        //Gestion de l'erreur
         alert("Erreur lors de la suppression de la commande : " + JSON.parse(request.responseText).error);
         indexCtrl.loadCommandes();
     }
 
+    //Méthode exécutée en cas de succès de la récupération des commandes
     getCommandesSuccess(data) {
         if (!data.empty) {
             this.afficherCommandes(data.commandes);
             const self = this; // Sauvegarde une référence à l'objet parent
             $(`.commande-delete-button`).on("click", function () {
                 const pk_panier = $(this).closest(".commande-container").attr("id");
-                self.deleteCommande(pk_panier); // Utilise self pour appeler la méthode
+                self.deleteCommande(pk_panier);
             });
         } else {
             this.afficherAucuneCommande();
         }
     }
 
+    //Méthode exécutée en cas d'erreur de la récupération des commandes
     getCommandesError(request, status, error) {
-        //Gestion de l'erreur
         alert("Erreur lors du chargement des commandes : " + JSON.parse(request.responseText).error);
         indexCtrl.loadAccueil();
     }
@@ -78,7 +82,6 @@ class CommandesCtrl {
                         <p class="commande-boisson-prix">CHF ${formatPrix(prix_boisson)}.-</p>
                     </div>`;
             });
-
 
             $("#liste-commandes-container").append(`
                 <div class="commande-container" id="${pk_commande}">

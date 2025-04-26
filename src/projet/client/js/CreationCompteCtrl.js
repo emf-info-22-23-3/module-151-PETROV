@@ -5,16 +5,21 @@
  * @author Tsvetoslav Petrov
  * @since 23.02.2025
 */
-
 class CreationCompteCtrl {
+    //Constructeur de la classe CreationCompteCtrl
     constructor() {
         this.initialiser();
     }
 
     //Méthode dédiée à l'initialisation du contrôleur
-    initialiser() { }
+    initialiser() { 
+        const self = this;
+        $(`.login-form-button`).on("click", () => {
+            self.pressCreerCompte();
+        });
+    }
 
-    //Méthode chargée de récpérer les informations du formulaire de création de compte et de les envoyer au serveur
+    //Méthode chargée de récupérer les informations du formulaire de création de compte et de les envoyer au serveur
     pressCreerCompte() {
         let username = $("input[name='username']").val();
         let password = $("input[name='password']").val();
@@ -22,13 +27,13 @@ class CreationCompteCtrl {
         httpService.creerCompte(username, password, passwordConfirm, this.creerCompteSuccess.bind(this), this.creerCompteeError.bind(this));
     }
 
-    //Fonction chargée d'informer l'utilisateur de la réussite de la création de compte
+    //Méthode exécutée en cas de succès de la création de compte
     creerCompteSuccess(response) {
         alert(response.message);
         indexCtrl.loadLogin();
     }
 
-    //Fonction chargée d'informer l'utilisateur de la réussite de la création de compte
+    //Méthode exécutée en cas d'échec de la création de compte
     creerCompteeError(request, status, error) {
         alert("Erreur lors de la création du compte : " + JSON.parse(request.responseText).error);
     }

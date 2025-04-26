@@ -242,10 +242,10 @@ switch ($action) {
                     ];
                 }
                 http_response_code(200);
-                echo json_encode(array("resultat" => true, "boissons" => $boissonReturnTab));
+                echo json_encode(array("empty" => false, "boissons" => $boissonReturnTab));
             } else {
                 http_response_code(200);
-                echo json_encode(array("resultat" => false, "message" => "Aucune boisson n'est en promotion actuellement."));
+                echo json_encode(array("empty" => true, "message" => "Aucune boisson n'est en promotion actuellement."));
             }
         }
         break;

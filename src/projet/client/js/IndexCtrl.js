@@ -1,10 +1,11 @@
 
+
+//Création des variables globales
 $().ready(function () {
     httpService = new HttpService();
-    indexCtrl = new IndexCtrl();  
+    indexCtrl = new IndexCtrl();
+    //Crée ici car sa méthode de déconnexion peut être appelée depuis presque n'importe où
     loginCtrl = new LoginCtrl();
-    creationCompteCtrl = new CreationCompteCtrl();
-    
 }); 
 /*
  * @class
@@ -14,6 +15,7 @@ $().ready(function () {
  * @since 23.02.2025
 */
 class IndexCtrl {
+    //Constructeur de la classe IndexCtrl
     constructor() {
         this.vue = new VueService();
         this.loadAccueil();
@@ -89,7 +91,7 @@ function checkUserSuccess(response) {
         }
     }
     
-
+    //Gestion de l'affichage du menu de navigation en fonction du type d'utilisateur
     if (currUser == "visiteur") {
         console.log("visiteur");
         $('.profile-all-buttons-container').append(`
@@ -134,6 +136,6 @@ function checkUserError(request, status, error) {
 //Fonction dédiée à la mise en forme du prix avec séparateur de milliers et deux décimales
 function formatPrix(prix) {
     let prixNombre = parseFloat(prix);
-    if (isNaN(prixNombre)) return "0.00"; // ou tu peux afficher un message d'erreur
-    return prixNombre.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, "'");
+    if (isNaN(prixNombre)) return "0.00";
+    return prixNombre.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,"'");
 }

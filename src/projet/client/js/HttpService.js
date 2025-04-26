@@ -1,8 +1,16 @@
-let url = "http://127.0.0.1:8080/projet/server/server.php";
-
+const url = "http://127.0.0.1:8080/projet/server/server.php";
+/*
+ * @class
+ * @classdesc Cette classe fait office de service HTTP pour l'application
+ *
+ * @author Tsvetoslav Petrov
+ * @since 23.02.2025
+*/
 class HttpService {
+    //Constructeur de la classe HttpService
     constructor() { }
 
+    //Méthode dédiée à la connexion de l'utilisateur
     login(username, password, successCallback, errorCallback) {
         $.ajax({
             url: url,
@@ -15,6 +23,7 @@ class HttpService {
         });
     }
 
+    //Méthode dédiée à la recherche de boissons
     effectuerRecherche(query, vinsFilter, bieresFilter, spiritueuxFilter, noAlcoolFilter, order, onlyPromotions, successCallback, errorCallback) {
         $.ajax({
             url: url +"?action=recherche&query=" + query + "&vinsFilter=" + vinsFilter + "&bieresFilter=" + bieresFilter +
@@ -28,6 +37,7 @@ class HttpService {
         });
     }
 
+    //Méthode dédiée à la vérification de l'utilisateur
     checkUser(successCallback, errorCallback) {
         $.ajax({
             url: url + "?action=checkUser",
@@ -39,6 +49,7 @@ class HttpService {
         });
     }
 
+    //Méthode dédiée à la création d'un compte utilisateur
     creerCompte(username, password, passwordConfirm, successCallback, errorCallback) {
         $.ajax({
             url: url,
@@ -51,6 +62,7 @@ class HttpService {
         });
     }
 
+    //Méthode dédiée à la déconnexion de l'utilisateur
     deconnecter(successCallback, errorCallback) {
         $.ajax({
             url: url,
@@ -63,6 +75,7 @@ class HttpService {
         });
     }
 
+    //Méthode dédiée à la récupération des informations de la boisson
     getBoisson(pkBoisson, successCallback, errorCallback) {
         $.ajax({
             url: url + "?action=getBoisson&pk_boisson=" + pkBoisson,
@@ -74,6 +87,7 @@ class HttpService {
         });
     }
 
+    //Méthode dédiée à la récupération des soldes
     getSoldes(successCallback, errorCallback) {
         $.ajax({
             url: url + "?action=getSoldes",
@@ -85,6 +99,7 @@ class HttpService {
         });
     }
 
+    //Méthode dédiée à l'ajout d'une boisson au panier
     ajouteAuPanier(pkBoisson, quantite, successCallback, errorCallback) {
         $.ajax({
             url: url,
@@ -97,6 +112,7 @@ class HttpService {
         });
     }
 
+    //Méthode dédiée à la récupération du panier de l'utilisateur
     getPanier(successCallback, errorCallback) {
         $.ajax({
             url: url + "?action=getPanier",
@@ -108,6 +124,7 @@ class HttpService {
         });
     }
 
+    //Méthode dédiée à la suppression d'une boisson du panier de l'utilisateur
     deleteBoissonDePanier(pkBoisson, successCallback, errorCallback) {
         $.ajax({
             url: url,
@@ -120,6 +137,7 @@ class HttpService {
         });
     }
 
+    //Méthode dédiée é l'envoi de la commande
     effectuerCommande(codePromo, successCallback, errorCallback) {
         if (codePromo === "") {
             $.ajax({
@@ -144,6 +162,7 @@ class HttpService {
         }
     }
 
+    //Méthode dédiée à la récupération des commandes des utilisateurs
     getCommandes(successCallback, errorCallback) {
         $.ajax({
             url: url + "?action=getCommandes",
@@ -155,6 +174,7 @@ class HttpService {
         });
     }
 
+    //Méthode dédiée à la suppression d'une commande
     deleteCommande(pkPanier, successCallback, errorCallback) {
         $.ajax({
             url: url,

@@ -5,8 +5,8 @@
  * @author Tsvetoslav Petrov
  * @since 23.02.2025
 */
-
 class RechercheCtrl {
+    //Constructeur de la classe RechercheCtrl
     constructor(query, vinsFilter, bieresFilter, spiritueuxFilter, noAlcoolFilter, order, onlyPromotions) {
         indexCtrl.checkUser();
         this.initialiser(query, vinsFilter, bieresFilter, spiritueuxFilter, noAlcoolFilter, order, onlyPromotions);
@@ -14,6 +14,7 @@ class RechercheCtrl {
 
     //Méthode dédiée à l'initialisation du contrôleur
     initialiser(query, vinsFilter, bieresFilter, spiritueuxFilter, noAlcoolFilter, order, onlyPromotions) {
+        //Récuération des valers des filtres et de la recherche
         $(`.search-bar`).val(query);
         $('.filtre-checkbox[name="Vins"]').prop('checked', vinsFilter);
         $('.filtre-checkbox[name="Bieres"]').prop('checked', bieresFilter);
@@ -21,8 +22,12 @@ class RechercheCtrl {
         $('.filtre-checkbox[name="Sans alcool"]').prop('checked', noAlcoolFilter);
         $('#tri-combobox').val(order);  
         $('input[name="Promotions"]').prop('checked', onlyPromotions);
+
+        //Lancement de la recherche
         httpService.effectuerRecherche(query, vinsFilter, bieresFilter, spiritueuxFilter, noAlcoolFilter, order, onlyPromotions,
             this.effectuerRechercheSuccess.bind(this), this.effectuerRechercheError.bind(this));
+        
+        //Écouteur d'événements pour le bouton de recherche et la barre de recherche
         $(`#recherche-application-button`).on("click", () => {
             indexCtrl.loadRecherche($(`.search-bar`).val(), $('input[name="Vins"]').is(':checked'), $('input[name="Bieres"]').is(':checked'), $('input[name="Spiritueux"]').is(':checked'), $('input[name="Sans alcool"]').is(':checked'), $('#tri-combobox').val(), $('input[name="Promotions"]').is(':checked'));
         });
@@ -32,19 +37,8 @@ class RechercheCtrl {
             }
         });
     }
-    //Méthode dédiée à la mise à jour des filtres
-    //updateFilters(selectedFilter) {
-    //    if (selectedFilter === 'all') {
-    //        $('#recherche-filtres-container .filtre-checkbox').each(function () {
-    //            $(this).prop('checked', true);
-    //        });
-    //    } else {
-    //        if (selectedFilter !== '') {
-    //            $(`[name=${selectedFilter}]`).prop(`checked`, true);
-    //        }
-    //    }
-    //}
 
+    //Méthode exécutée en cas de succès de la recherche
     effectuerRechercheSuccess(data) {
         if (!data.empty) {
             this.afficherProduits(data.boissons);
@@ -53,6 +47,7 @@ class RechercheCtrl {
         }
     }
 
+    //Méthode exécutée en cas d'échec de la recherche
     effectuerRechercheError(request, status, error) {
         alert("Erreur lors de la recherche : " + JSON.parse(request.responseText).error);
         indexCtrl.loadAccueil();

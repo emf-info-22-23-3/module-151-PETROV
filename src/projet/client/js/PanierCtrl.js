@@ -5,8 +5,8 @@
  * @author Tsvetoslav Petrov
  * @since 23.02.2025
 */
-
 class PanierCtrl {
+    //Constructeur de la classe PanierCtrl
     constructor() {
         indexCtrl.checkUser();
         this.initialiser();
@@ -17,15 +17,15 @@ class PanierCtrl {
         httpService.getPanier(this.chargerPanierSuccess.bind(this), this.chargerPanierError.bind(this));
     }
 
+    //Méthode exécutée en cas de succès du chargement du panier
     chargerPanierSuccess(response) {
         if (!response.empty) {
             this.afficherPanier(response.panier.pk_panier, response.boissons, response.prix_total_panier);
             const self = this; // Sauvegarde une référence à l'objet parent
             $(`.delete-item-panier-button`).on("click", function () {
                 const pk_boisson = $(this).closest(".panier-container").attr("id");
-                self.deleteBoissonDePanier(pk_boisson); // Utilise self pour appeler la méthode
+                self.deleteBoissonDePanier(pk_boisson);
             });
-
             $("#finalisation-commande-button").on("click", function () {
                 const code = $("#finalisation-commande-code").val();
                 self.finaliserPanier(code);
@@ -33,38 +33,44 @@ class PanierCtrl {
         } else {
             this.afficherPanierVide();
         }
-
     }
 
+    //Méthode exécutée en cas d'échec du chargement du panier
     chargerPanierError(request, status, error) {
         //Gestion de l'erreur
         alert("Erreur lors du chargement du panier : " + JSON.parse(request.responseText).error);
         indexCtrl.loadAccueil();
     }
 
+    //Méthode dédiée à la finalisation du panier
     finaliserPanier(codePromo) {
         httpService.effectuerCommande(codePromo, this.finaliserPanierSuccess.bind(this), this.finaliserPanierError.bind(this));
     }
 
+    //Méthode exécutée en cas de succès de la finalisation du panier
     finaliserPanierSuccess(response) {
         alert(response.message);
         indexCtrl.loadAccueil();
     }
 
+    //Méthode exécutée en cas d'échec de la finalisation du panier
     finaliserPanierError(request, status, error) {
         //Gestion de l'erreur
         alert("Erreur lors de la finalisation de la commande : " + JSON.parse(request.responseText).error);
     }
 
+    //Méthode dédiée à la suppression d'une boisson du panier
     deleteBoissonDePanier(pk_Boisson) {
         httpService.deleteBoissonDePanier(pk_Boisson, this.deleteBoissonDePanierSuccess.bind(this), this.deleteBoissonDePanierError.bind(this));
     }
 
+    //Méthode exécutée en cas de succès de la suppression d'une boisson du panier
     deleteBoissonDePanierSuccess(response) {
         alert(response.message);
         indexCtrl.loadPanier();
     }
 
+    //Méthode exécutée en cas d'échec de la suppression d'une boisson du panier
     deleteBoissonDePanierError(request, status, error) {
         //Gestion de l'erreur
         alert("Erreur lors de la suppression de la boisson du panier : " + JSON.parse(request.responseText).error);
@@ -84,7 +90,6 @@ class PanierCtrl {
             if (produit.image) {
                 imageBase64 = "data:image/jpeg;base64," + produit.image;
             } else {
-                // Si aucune image n'est disponible, utiliser une image par défaut
                 imageBase64 = "/images/no-image.webp";
             }
 
@@ -115,7 +120,6 @@ class PanierCtrl {
             </div>
             `);
         });
-
         $(".page-content-container").after(`
             <div id="finalisation-commande-container">
                 <p id="finalisation-commande-prix">Prix total : CHF ${formatPrix(prixTotalPanier)}.-</p>

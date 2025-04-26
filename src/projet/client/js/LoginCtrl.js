@@ -5,8 +5,8 @@
  * @author Tsvetoslav Petrov
  * @since 23.02.2025
 */
-
 class LoginCtrl {
+    //Constructeur de la classe LoginCtrl
     constructor() {
         this.initialiser();
     }
@@ -21,35 +21,36 @@ class LoginCtrl {
         httpService.login(username, password, loginSuccess, loginError);
     }
 
+    //Méthode exécutée en cas de succès de la connexion
+    loginSuccess(response) {
+        if (response.success) {
+            alert(response.message);
+            indexCtrl.loadAccueil();
+        }
+    }
+    
+    //Méthode exécutée en cas d'échec de la connexion
+    loginError(request, status, error) {
+        alert("Erreur lors de la tentative de login : " + JSON.parse(request.responseText).error);
+    }  
+
     //Méthode chargée de déconnecter l'utilisateur
     deconnecter() {
         httpService.deconnecter(deconnecterSuccess, deconnecterError);
     }
-}
 
-//Fonction chargée d'informer l'utilisateur de la réussite de la connexion
-function loginSuccess(response) {
-    if (response.success) {
-        alert(response.message);
-        indexCtrl.loadAccueil();
+    //Méthode exécutée en cas de succès de la déconnexion
+    deconnecterSuccess(response) {
+        if (response.resultat) {
+            alert(response.success);
+            indexCtrl.loadAccueil();
+        }
+    }
+    
+    //Méthode exécutée en cas d'échec de la déconnexion
+    deconnecterError(request, status, error) {
+        let response = JSON.parse(request.responseText);
+        alert(response.error);
     }
 }
 
-//Fonction chargée d'informer l'utilisateur de l'échec de la connexion
-function loginError(request, status, error) {
-    alert("Erreur lors de la tentative de login : " + JSON.parse(request.responseText).error);
-}
-
-//Fonction chargée d'informer l'utilisateur de la réussite de la déconnexion
-function deconnecterSuccess(response) {
-    if (response.resultat) {
-        alert(response.success);
-        indexCtrl.loadAccueil();
-    }
-}
-
-//Fonction chargée d'informer l'utilisateur de l'échec de la déconnexion
-function deconnecterError(request, status, error) {
-    let response = JSON.parse(request.responseText);
-    alert(response.error);
-}

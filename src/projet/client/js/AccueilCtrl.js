@@ -7,6 +7,7 @@
 */
 
 class AccueilCtrl {
+    //Constructeur de la classe AccueilCtrl
     constructor() {
         this.initialiser();
     }
@@ -16,19 +17,21 @@ class AccueilCtrl {
         httpService.getSoldes(this.soldesSuccess.bind(this), this.soldesError.bind(this));
     }
 
+    //Méthode exécutée en cas de succès de la récupération des soldes
     soldesSuccess(response) {
-        if (response.boissons) {
+        if (!response.empty) {
             this.afficherSoldes(response.boissons);
         } else {
             this.afficherAucunSoldes(response.message);
         }
     }
 
+    //Méthode exécutée en cas d'erreur de la récupération des soldes
     soldesError(request, status, error) {
-        //Gestion de l'erreur
-        alert("Erreur lors de la récupération des soldes : " + error);
+        alert("Erreur lors de la récupération des soldes : " + JSON.parse(request.responseText).error);
         this.afficherAucunSoldes("Erreur lors de la récupération des soldes");
     }
+
     //Méthode dédiée à l'affichage des soldes dur la page d'accueil
     afficherSoldes(soldes) {
         soldes.forEach(produit => {
@@ -42,12 +45,9 @@ class AccueilCtrl {
             if (produit.image) {
                 imageBase64 = "data:image/jpeg;base64," + produit.image;
             } else {
-                // Si aucune image n'est disponible, utiliser une image par défaut
                 imageBase64 = "/images/no-image.webp";
-            }
-            
+            }           
             let textColor = "rgb(255, 0, 119)";
-    
             $(`#liste-promotions-container`).append(`
                 <a onclick="indexCtrl.loadProduit(${pk})" class="boisson-container">
                     <img class="boisson-image" src="${imageBase64}" alt="${nom}">
@@ -67,5 +67,4 @@ class AccueilCtrl {
             <p class="liste-vide-text" style="padding-left: 30px;">${message}</p>
         `);
     }
-
 }

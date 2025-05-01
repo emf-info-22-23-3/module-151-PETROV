@@ -1,13 +1,31 @@
 <?php
+
+/**
+ * Classe de gestion des panier dans la base de données
+ * @author  Tsvetoslav Petrov
+ * @version 2.0
+ * @package workers
+ */
 class PanierDBManager
 {
 
+    //Attributs
     private $connexion;
+
+    //Constructeur
     public function __construct()
     {
         $this->connexion = Connexion::getInstance();
     }
 
+    /**
+     * Méthode permettant l'ajout d'une boisson au panier dans la base de données
+     * 
+     * @param int $pk_boisson Identifiant de la boisson
+     * @param int $quantite Quantité de la boisson à ajouter
+     * @param int $pk_panier Identifiant du panier
+     * @return int Nombre de lignes affectées
+     */
     public function ajouterBoissonAuPanier($pk_boisson, $quantite, $pk_panier)
     {
         // Vérifier si une ligne existe déjà avec cette combinaison
@@ -31,6 +49,12 @@ class PanierDBManager
         }
     }
 
+    /**
+     * Méthode permettant de créer un panier pour un compte dans la base de données
+     * 
+     * @param int $pk_compte Identifiant du compte
+     * @return int Le nombre de lignes affectées
+     */
     public function ajouterPanier($pk_compte)
     {
         $query = "INSERT INTO T_Panier (fk_compte, est_valide) VALUES (?, 0)";
@@ -38,6 +62,12 @@ class PanierDBManager
         return $this->connexion->executeQuery($query, $params);
     }
 
+    /**
+     * Méthode permettant de récupérer un panier à partir de son identifiant dans la base de données
+     * 
+     * @param int $pk_panier Identifiant du panier
+     * @return Panier|null Le panier correspondant ou null si aucun panier n'est trouvé
+     */
     public function getPanierByPk($pk_panier)
     {
         $panier = null;
@@ -51,6 +81,11 @@ class PanierDBManager
         return $panier;
     }
 
+    /**
+     * Méthode permettant de récupérer tous les paniers validés dans la base de données
+     * 
+     * @return array Les paniers validés
+     */
     public function getPaniersValidated(){
         $paniers = [];
         $query = "SELECT * FROM T_Panier WHERE est_valide = 1";
@@ -61,6 +96,12 @@ class PanierDBManager
         return $paniers;
     }
 
+    /**
+     * Méthode permettant de récupérer le panier non validé d'un compte dans la base de données
+     * 
+     * @param int $pk_compte Identifiant du compte
+     * @return Panier|null Le panier non validé ou null si aucun panier n'est trouvé
+     */
     public function getPanierUnvalidated($pk_compte)
     {
         $panier = null;
@@ -74,6 +115,12 @@ class PanierDBManager
         return $panier;
     }
 
+    /**
+     * Méthode permettant de changer l'état d'un panier de non validé à validé dans la base de données
+     * 
+     * @param int $pk_panier Identifiant du panier
+     * @return int Le nombre de lignes affectées
+     */
     public function setPanierValidated($pk_panier)
     {
         $query = "UPDATE T_Panier SET est_valide = 1 WHERE pk_panier = ?";
@@ -81,6 +128,13 @@ class PanierDBManager
         return $this->connexion->executeQuery($query, $params);
     }
 
+
+    /**
+     * Méthode permettant de récupérer l'identifiant de toutes les boissons d'un panier dans la base de données
+     * 
+     * @param int $pk_panier Identifiant du panier
+     * @return array Les identifiants des boissons du panier
+     */
     public function getPKBoissonsDuPanier($pk_panier)
     {
         $boissonsInfos = [];
@@ -101,6 +155,13 @@ class PanierDBManager
         return $boissonsInfos;
     }
 
+    /**
+     * Méthode permettant de vérifier si une boisson est déjà dans le panier dans la base de données
+     * 
+     * @param int $pk_boisson Identifiant de la boisson
+     * @param int $pk_panier Identifiant du panier
+     * @return bool true si la boisson est dans le panier, false sinon
+     */
     public function isBoissonInPanier($pk_boisson, $pk_panier)
     {
         $query = "SELECT * FROM TR_Panier_Boisson WHERE fk_boisson_panier = ? AND fk_panier_boisson = ?";
@@ -109,6 +170,14 @@ class PanierDBManager
         return $resultat ? true : false;
     }
 
+
+    /**
+     * Méthode permettant de récupérer la quantité d'une boisson dans un panier dans la base de données
+     * 
+     * @param int $pk_boisson Identifiant de la boisson
+     * @param int $pk_panier Identifiant du panier
+     * @return mixed La quantité de la boisson dans le panier ou null si la boisson n'est pas dans le panier
+     */
     public function getQuantite($pk_boisson, $pk_panier)
     {
         $query = "SELECT quantite_choisie FROM TR_Panier_Boisson WHERE fk_boisson_panier = ? AND fk_panier_boisson = ?";
@@ -117,6 +186,13 @@ class PanierDBManager
         return $resultat ? $resultat["quantite_choisie"] : null;
     }
 
+    /**
+     * Méthode permettant de supprimer une boisson d'un panier dans la base de données
+     * 
+     * @param int $pk_boisson Identifiant de la boisson
+     * @param int $pk_panier Identifiant du panier
+     * @return int Le nombre de lignes affectées
+     */
     public function deleteBoissonFromPanier($pk_boisson, $pk_panier)
     {
         $query = "DELETE FROM TR_Panier_Boisson WHERE fk_boisson_panier = ? AND fk_panier_boisson = ?";
@@ -124,6 +200,12 @@ class PanierDBManager
         return $this->connexion->executeQuery($query, $params);
     }
 
+    /**
+     * Méthode permettant de supprimer un panier dans la base de données
+     * 
+     * @param int $pk_panier Identifiant du panier
+     * @return int Le nombre de lignes affectées
+     */
     public function deletePanier($pk_panier)
     {
         $query = "DELETE FROM T_Panier WHERE pk_panier = ?";
@@ -131,6 +213,12 @@ class PanierDBManager
         return $this->connexion->executeQuery($query, $params);
     }
 
+    /**
+     * Méthode permettant de supprimer toutes les boissons d'un panier dans la base de données
+     * 
+     * @param int $pk_panier Identifiant du panier
+     * @return int Le nombre de lignes affectées
+     */
     public function deleteBoissonsDuPanier($pk_panier)
     {
         $query = "DELETE FROM TR_Panier_Boisson WHERE fk_panier_boisson = ?";

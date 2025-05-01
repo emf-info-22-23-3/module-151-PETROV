@@ -3,13 +3,14 @@
 include_once('configConnexion.php');
 
 /**
- * Classe connexion
- * 
- * Cette classe permet de gérer l'accès à la base de données.
+ * Classe de gestion des requêtes vers la base de données (Singleton)
+ * @author  Tsvetoslav Petrov
+ * @version 2.0
+ * @package workers
  */
-
 class Connexion {
 
+    // Attributs
     private static $_instance = null;
     private $pdo;
 
@@ -17,8 +18,7 @@ class Connexion {
      * Méthode qui crée l'unique instance de la classe
      * si elle n'existe pas encore puis la retourne.
      *
-     * @param void
-     * @return Singleton de la connexion
+     * @return Connexion Singleton de la connexion
      */
     public static function getInstance() {
         if (is_null(self::$_instance)) {
@@ -52,9 +52,9 @@ class Connexion {
      * Fonction permettant d'exécuter un select dans MySQL.
      * A utiliser pour les SELECT.
      * 
-     * @param String $query. Requête à exécuter.
-     * @param Array $params. Contient les paramètres à ajouter à la requête (null si aucun paramètre n'est requis)
-     * @return toutes les lignes du select
+     * @param string $query. Requête à exécuter.
+     * @param array $params. Contient les paramètres à ajouter à la requête (null si aucun paramètre n'est requis)
+     * @return array toutes les lignes du select
      */
     public function selectQuery($query, $params) {
         try {
@@ -71,9 +71,9 @@ class Connexion {
      * Fonction permettant d'exécuter un select avec une seule réponse dans MySQL.
      * A utiliser pour les SELECT.
      * 
-     * @param String $query. Requête à exécuter.
-     * @param Array $params. Contient les paramètres à ajouter à la requête (null si aucun paramètre n'est requis)
-     * @return la première ligne du select
+     * @param string $query. Requête à exécuter.
+     * @param array $params. Contient les paramètres à ajouter à la requête (null si aucun paramètre n'est requis)
+     * @return mixed la première ligne du select
      */
     public function selectSingleQuery($query, $params) {
         try {
@@ -90,9 +90,9 @@ class Connexion {
      * Fonction permettant d'exécuter une requête MySQL.
      * A utiliser pour les UPDATE, DELETE, INSERT.
      *
-     * @param String $query. Requête à exécuter.
-     * @param Array $params. Contient les paramètres à ajouter à la requête  (null si aucun paramètre n'est requis)
-     * @return le nombre de lignes affectées par la requête
+     * @param string $query. Requête à exécuter.
+     * @param array $params. Contient les paramètres à ajouter à la requête  (null si aucun paramètre n'est requis)
+     * @return int le nombre de lignes affectées par la requête
      */
     public function executeQuery($query, $params) {
         try {
@@ -108,7 +108,7 @@ class Connexion {
     /**
      * Fonction permettant d'obtenir le dernier id inséré.
      * 
-     * @param String $table. la table où a été inséré l'objet. 
+     * @param string $table. la table où a été inséré l'objet. 
      * @return int: l'id du dernier élément inséré.
      */
     public function getLastId($table) {

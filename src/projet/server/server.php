@@ -14,6 +14,7 @@ require_once 'beans/Boisson.php';
 require_once 'beans/Panier.php';
 
 
+// Vérification de la méthode de la requête
 $action = "";
 if (isset($_POST["action"])) {
     $action = $_POST["action"];
@@ -23,7 +24,10 @@ if (isset($_GET["action"])) {
     $action = $_GET["action"];
 }
 
+// Vérification de l'action demandée
 switch ($action) {
+
+    //Cas de recherche de boissons
     case "recherche":
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             if (isset($_GET["query"]) && isset($_GET["vinsFilter"]) && isset($_GET["bieresFilter"]) && isset($_GET["spiritueuxFilter"]) && isset($_GET["noAlcoolFilter"]) && isset($_GET["order"]) && isset($_GET["onlyPromotions"])) {
@@ -61,6 +65,7 @@ switch ($action) {
             }
         }
         break;
+    //Cas de tentative de connexion
     case "login":
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $sessionManager = new SessionManager();
@@ -90,6 +95,7 @@ switch ($action) {
             }
         }
         break;
+    //Cas de vérification de l'utilisateur 
     case "checkUser":
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $sessionManager = new SessionManager();
@@ -104,6 +110,7 @@ switch ($action) {
             }
         }
         break;
+    //Cas de déconnexion
     case "deconnecter":
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $sessionManager = new SessionManager();
@@ -119,6 +126,7 @@ switch ($action) {
             }
         }
         break;
+    //Cas de création de compte
     case "creationCompte":
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $sessionManager = new SessionManager();
@@ -150,6 +158,7 @@ switch ($action) {
             }
         }
         break;
+    //Cas d'ajout de boisson au panier
     case "ajouterAuPanier":
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_POST['pk_boisson']) && isset($_POST['quantite'])) {
@@ -191,6 +200,7 @@ switch ($action) {
             }
         }
         break;
+    //Cas de récupération des détails d'une boisson
     case "getBoisson":
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             if (isset($_GET["pk_boisson"])) {
@@ -224,6 +234,7 @@ switch ($action) {
             }
         }
         break;
+    //Cas de récupération des boissons en promotion
     case "getSoldes":
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $boissonManager = new BoissonManager();
@@ -248,7 +259,7 @@ switch ($action) {
             }
         }
         break;
-
+    //Cas de récupération du panier
     case "getPanier":
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $sessionManager = new SessionManager();
@@ -294,6 +305,7 @@ switch ($action) {
             }
         }
         break;
+    //Cas de suppression d'une boisson du panier
     case "deleteFromPanier":
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $sessionManager = new SessionManager();
@@ -330,6 +342,7 @@ switch ($action) {
             }
         }
         break;
+    //Cas de validation du panier
     case "effectuerCommande":
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $sessionManager = new SessionManager();
@@ -360,6 +373,7 @@ switch ($action) {
             }
         }
         break;
+    //Cas de récupération des commandes
     case "getCommandes":
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $sessionManager = new SessionManager();
@@ -412,6 +426,7 @@ switch ($action) {
             }
         }
         break;
+    //Cas de suppression d'une commande
     case "deleteCommande":
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $sessionManager = new SessionManager();

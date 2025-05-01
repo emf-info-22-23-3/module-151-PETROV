@@ -1,12 +1,34 @@
 <?php
+
+/**
+ * Classe de gestion des recherches de boissons dans la base de données
+ * @author  Tsvetoslav Petrov
+ * @version 2.0
+ * @package workers
+ */
 class RechercheDBManager
 {
+    //Attributs
     private $connexion;
+
+    //Constructeur
     public function __construct()
     {
         $this->connexion = Connexion::getInstance();
     }
 
+    /**
+     * Méthode permettant d'effectuer une recherche de boissons dans la base de données
+     * 
+     * @param string $query Le champ entré dans la recherche
+     * @param bool $vinsFilter Filtre pour les vins
+     * @param bool $bieresFilter Filtre pour les bières
+     * @param bool $spiritueuxFilter Filtre pour les spiritueux
+     * @param bool $noAlcoolFilter Filtre pour les boissons non alcoolisées
+     * @param string $order Ordre de tri des résultats
+     * @param bool $onlyPromotions Indique si seuls les produits en promotion doivent être affichés
+     * @return array Résultats de la recherche
+     */
     public function effectuerRecherche($searchQuery, $vinsFilter, $bieresFilter, $spiritueuxFilter, $noAlcoolFilter, $order, $onlyPromotions)
     {
         $boissons = [];
@@ -103,6 +125,13 @@ class RechercheDBManager
         return $boissons;
     }
 
+
+    /**
+     * Méthode permettant de récupérer l'assortiment d'une boisson à partir de son identifiant
+     * 
+     * @param int $pk_boisson Identifiant de la boisson
+     * @return string Nom de l'assortiment de la boisson
+     */
     private function getAssortimentForBoissons($pk_boisson)
     {
         $query = "SELECT nom

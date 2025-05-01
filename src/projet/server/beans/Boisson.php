@@ -1,14 +1,17 @@
 <?php
 
 
+
 /**
- * Class Boisson
- * 
- * Représente une boisson avec ses attributs.
+ * Classe représentant une boisson
+ * @author  Tsvetoslav Petrov
+ * @version 2.0
+ * @package beans
  */
 class Boisson
 {
 
+    //Attributs de la classe Boisson
     private $pk_boisson;
     private $nom;
     private $quantite;

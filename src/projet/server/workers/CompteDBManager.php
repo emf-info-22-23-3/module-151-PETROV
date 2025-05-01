@@ -1,13 +1,30 @@
 <?php
 require_once("Connexion.php");
+
+/**
+ * Classe de gestion des comptes dans la base de données
+ * @author  Tsvetoslav Petrov
+ * @version 2.0
+ * @package workers
+ */
 class CompteDBManager
 {
 
+    //Attributs
     private $connexion;
+
+    //Constructeur
     public function __construct(){
         $this->connexion = Connexion::getInstance();
     }
 
+    /**
+     * Méthode permettant l'ajout d'un nouveau compte dans la base de données
+     * 
+     * @param string $username Nom d'utilisateur du compte
+     * @param string $password Mot de passe du compte
+     * @return mixed compte créé ou null si l'ajout a échoué
+     */
     public function ajouterCompte($username, $password){
         $retour = false;
         $query = "SELECT * FROM T_Compte WHERE nom_utilisateur = ?";
@@ -23,6 +40,13 @@ class CompteDBManager
         return $retour;
     }
 
+    /**
+     * Méthode permettant la vérification des identifiants de connexion d'un compte dans la base de données
+     * 
+     * @param string $username Nom d'utilisateur du compte
+     * @param string $password Mot de passe du compte
+     * @return Compte|null compte trouvé ou null si les identifiants sont incorrects
+     */
     public function checkLogin($username, $password){
         $compte = null;
         $query = "SELECT * FROM T_Compte WHERE nom_utilisateur = ?";
@@ -36,6 +60,12 @@ class CompteDBManager
         return $compte;
     }
 
+    /**
+     * Méthode permettant la récupération d'un compte à partir de son identifiant dans la base de données
+     * 
+     * @param int $pk_compte Identifiant du compte
+     * @return Compte|null compte trouvé ou null si le compte n'existe pas
+     */
     public function getCompteByPk($pk_compte){
         $compte = null;
         $query = "SELECT * FROM T_Compte WHERE pk_compte = ?";

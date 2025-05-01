@@ -90,7 +90,7 @@ class PanierCtrl {
             if (produit.image) {
                 imageBase64 = "data:image/jpeg;base64," + produit.image;
             } else {
-                imageBase64 = "/images/no-image.webp";
+                imageBase64 = "images/no-image.webp";
             }
 
             let prixTotalAffichage = "";
@@ -101,7 +101,7 @@ class PanierCtrl {
             $("#liste-panier-container").append(`
             <div class="panier-container" id="${pkProduit}">
                 <div class="panier-produit-container">
-                    <img src="${imageBase64}" class="panier-produit-image" alt="boisson" onerror="javascript:this.src='/images/no-image.webp'">
+                    <img src="${imageBase64}" class="panier-produit-image" alt="boisson" onerror="javascript:this.src='images/no-image.webp'">
                     <div class="panier-produit-informations-container">
                         <p class="panier-produit-nom">${nom}</p>
                         <p class="panier-produit-quantite">Quantité choisie : ${quantite}</p>
@@ -112,9 +112,8 @@ class PanierCtrl {
                     </div>
                 </div>
                 <div class="delete-item-container">
-                    
                         <button style="border:solid 2px black" class="delete-item-panier-button">
-                            <img class="delete-item-panier" src="/images/poubelle.png" alt="panier">
+                            <img class="delete-item-panier" src="images/poubelle.png" alt="panier">
                         </button>
                 </div>
             </div>
@@ -125,7 +124,7 @@ class PanierCtrl {
                 <p id="finalisation-commande-prix">Prix total : CHF ${formatPrix(prixTotalPanier)}.-</p>
                 <div id="finalisation-commande-form-container">
                     <input id="finalisation-commande-code" type="text" placeholder="Code de réduction">
-                    <button id="finalisation-commande-button" onclick="indexCtrl.finaliserPanier(${pkPanier}, $('#finalisation-commande-code').val())">Commander</button>
+                    <button id="finalisation-commande-button">Commander</button>
                 </div>
             </div> 
         `);

@@ -14,8 +14,8 @@ class ProduitCtrl {
 
     //Méthode dédiée à l'initialisation du contrôleur
     initialiser(pkBoisson) {
-        httpService.getBoisson(pkBoisson, this.ess.bind(this), this.getBoissonError.bind(this));
-    }getBoissonSucc
+        httpService.getBoisson(pkBoisson, this.getBoissonSuccess.bind(this), this.getBoissonError.bind(this));
+    }
 
     //Méthode exécutée en cas de succès de la récupération de la boisson
     getBoissonSuccess(response) {
@@ -48,7 +48,7 @@ class ProduitCtrl {
         if (boisson.image) {
             imageBase64 = "data:image/jpeg;base64," + boisson.image;
         } else {
-            imageBase64 = "/images/no-image.webp";
+            imageBase64 = "images/no-image.webp";
         }
 
         if (nom === null) {

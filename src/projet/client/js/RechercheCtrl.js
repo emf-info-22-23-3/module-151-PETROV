@@ -66,11 +66,11 @@ class RechercheCtrl {
                 imageBase64 = "data:image/jpeg;base64," + produit.image;
             } else {
                 // Si aucune image n'est disponible, utiliser une image par défaut
-                imageBase64 = "/images/no-image.webp";
+                imageBase64 = "images/no-image.webp";
             }
 
             let textColor = "black";
-            if (produit.est_en_solde) {
+            if (produit.est_en_solde == "1") {
                 textColor = "rgb(255, 0, 119)";
             }
 

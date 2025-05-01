@@ -36,7 +36,7 @@ class LoginCtrl {
 
     //Méthode chargée de déconnecter l'utilisateur
     deconnecter() {
-        httpService.deconnecter(deconnecterSuccess, deconnecterError);
+        httpService.deconnecter(this.deconnecterSuccess.bind(this), this.deconnecterError.bind(this));
     }
 
     //Méthode exécutée en cas de succès de la déconnexion

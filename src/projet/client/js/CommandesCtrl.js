@@ -91,7 +91,7 @@ class CommandesCtrl {
                         <p class="commande-prix">CHF ${formatPrix(prix_total)}.-</p>
                         <p class="commande-code">Code utilisé : ${code_promo}</p>
                         <button class="commande-delete-button">
-                            <img class="commande-delete-button-img" src="/images/poubelle.png" alt="delete">
+                            <img class="commande-delete-button-img" src="images/poubelle.png" alt="delete">
                         </button>
                     </div>
                     <div class="commande-boissons-container">

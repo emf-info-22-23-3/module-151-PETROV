@@ -45,7 +45,7 @@ class AccueilCtrl {
             if (produit.image) {
                 imageBase64 = "data:image/jpeg;base64," + produit.image;
             } else {
-                imageBase64 = "/images/no-image.webp";
+                imageBase64 = "images/no-image.webp";
             }           
             let textColor = "rgb(255, 0, 119)";
             $(`#liste-promotions-container`).append(`

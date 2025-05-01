@@ -100,8 +100,13 @@ switch ($action) {
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $sessionManager = new SessionManager();
             if ($sessionManager->isConnected()) {
+                $estAdmin = false;
+                if ($sessionManager->getEstAdmin()) {
+                    $estAdmin = true;
+                }
                 http_response_code(200);
-                echo json_encode(array("estLogin" => true, "estAdmin" => $sessionManager->getEstAdmin()));
+                
+                echo json_encode(array("estLogin" => true, "estAdmin" => $estAdmin));
                 break;
             } else {
                 http_response_code(200);
@@ -365,6 +370,7 @@ switch ($action) {
                     }
                 }
                 $panierManager->setPanierValidated($panier->getPkPanier());
+                $panierManager->ajouterPanier($sessionManager->getPk());
                 http_response_code(200);
                 echo json_encode(array("message" => "La commande a été effectuée avec succès"));
             } else {

@@ -1,8 +1,8 @@
 <?php
 	//Informations de connexion à la base de données
 	define('DB_TYPE', 'mysql');
-    define('DB_HOST', 'database');
-    define('DB_NAME', 'DrinkUP_db');
-    define('DB_USER', 'root');
-    define('DB_PASS', 'root');
+    define('DB_HOST', 'petrovt.emf-informatique.ch');
+    define('DB_NAME', 'petrovt_DrinkUP_db');
+    define('DB_USER', 'petrovt_root');
+    define('DB_PASS', 'Pa$$w0rdmysql');
 ?>

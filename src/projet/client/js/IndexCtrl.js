@@ -110,7 +110,7 @@ function checkUserSuccess(response) {
                 </a>
             </div> 
         `);
-        console.log("utilisateur");
+
     } else if (currUser == "administrateur") {
         $('.profile-all-buttons-container').append(`
             <div class="profile-button-container">

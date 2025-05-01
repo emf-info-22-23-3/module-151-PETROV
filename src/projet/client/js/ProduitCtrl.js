@@ -63,7 +63,7 @@ class ProduitCtrl {
             quantiteDisponible = "0";
         }
 
-        if (quantiteDisponible === 0) {
+        if (quantiteDisponible == "0") {
             $(`.select-quantite-panier-button`).prop("disabled", true);
             $(`.select-quantite-panier-button`).css("background-color", "grey");
             $(`.select-quantite-panier-button`).css("cursor", "not-allowed");
@@ -96,7 +96,7 @@ class ProduitCtrl {
         $(`#achat-boisson-image`).prop("src", imageBase64);
         $(`#achat-boisson-image`).prop("alt", nom);
         $(`#achat-boisson-nom`).append(nom);
-        $(`#achat-boisson-prix`).append("CHF " + formatPrix(prix) + ".-");
+        $(`#achat-boisson-prix`).append("CHF " + formatPrix(prix) + "");
         $(`#achat-boisson-quantite`).append(quantite);
         $(`#achat-boisson-quantite-disponible`).append(quantiteDisponible);
         $(`#achat-boisson-informations`).append(informations);

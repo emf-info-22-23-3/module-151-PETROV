@@ -11,7 +11,7 @@ Le projet consiste à développer une application web nommée "DrinkUP" permetta
 
 ### Accueil et navigation :
 
-- Affichage de boissons aléatoires en promotion
+- Affichage de toutes les boissons en promotion
 - Barre de recherche de boissons
 - Accès rapide aux catégories via des raccourcis
 
@@ -33,7 +33,7 @@ Le projet consiste à développer une application web nommée "DrinkUP" permetta
 ### Gestion du panier :
 
 - Ajout de boissons au panier (réservé aux utilisateurs authentifiés)
-- Modification des quantités et suppression d'articles
+- Suppression d'articles
 - Application de codes de réduction lors de la commande
 
 
@@ -46,4 +46,12 @@ Le projet consiste à développer une application web nommée "DrinkUP" permetta
 ## Identifiants de la base de données
 
 Nom d'utilisateur : petrovt_root
-Mot de passe : Pa$$w0rdDr1nkUpRoot
+Mot de passe : Pa$$w0rdmysql
+
+## Identifiants de connexion
+
+Nom d'utilisateur de l'enseignant (admin) : RouillerN
+Mot de passe : emf123
+
+Nom d'utilisateur d'un visiteur : guest
+Mot de passe : emf123

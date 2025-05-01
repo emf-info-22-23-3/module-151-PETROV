@@ -80,7 +80,7 @@ class RechercheCtrl {
                 <div class="boisson-informations-container">
                     <p class="boisson-nom">${nom}</p>
                     <p class="boisson-quantite">${quantite}</p>
-                    <p class="boisson-prix" style="color: ${textColor}">CHF ${formatPrix(prix)}.-</p>
+                    <p class="boisson-prix" style="color: ${textColor}">CHF ${formatPrix(prix)}</p>
                 </div>
             </a>
                 `);

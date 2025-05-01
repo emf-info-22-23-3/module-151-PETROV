@@ -79,7 +79,7 @@ class CommandesCtrl {
                         <p class="commande-boisson-quantite-choisie">${quantite_choisie_boisson}x</p>
                         <p class="commande-boisson-nom">${nom_boisson}</p>
                         <p class="commande-boisson-quantite">${quantite_boisson}</p>
-                        <p class="commande-boisson-prix">CHF ${formatPrix(prix_boisson)}.-</p>
+                        <p class="commande-boisson-prix">CHF ${formatPrix(prix_boisson)}</p>
                     </div>`;
             });
 
@@ -88,7 +88,7 @@ class CommandesCtrl {
                     <div class="commande-infos-container">
                         <p class="commande-id">ID : ${pk_commande}</p>
                         <p class="commande-auteur">Par : ${auteur}</p>
-                        <p class="commande-prix">CHF ${formatPrix(prix_total)}.-</p>
+                        <p class="commande-prix">CHF ${formatPrix(prix_total)}</p>
                         <p class="commande-code">Code utilisé : ${code_promo}</p>
                         <button class="commande-delete-button">
                             <img class="commande-delete-button-img" src="images/poubelle.png" alt="delete">

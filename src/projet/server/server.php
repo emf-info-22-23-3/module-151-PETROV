@@ -31,7 +31,7 @@ switch ($action) {
     case "recherche":
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             if (isset($_GET["query"]) && isset($_GET["vinsFilter"]) && isset($_GET["bieresFilter"]) && isset($_GET["spiritueuxFilter"]) && isset($_GET["noAlcoolFilter"]) && isset($_GET["order"]) && isset($_GET["onlyPromotions"])) {
-                $query = $_GET["query"];
+                $query = htmlspecialchars($_GET["query"]);
                 $vinsFilter = $_GET["vinsFilter"];
                 $bieresFilter = $_GET["bieresFilter"];
                 $spiritueuxFilter = $_GET["spiritueuxFilter"];
@@ -78,7 +78,7 @@ switch ($action) {
                 }
 
                 $compteManager = new CompteManager();
-                $compte = $compteManager->checkLogin(trim($_POST['username']), $_POST['password']);
+                $compte = $compteManager->checkLogin(trim(htmlspecialchars($_POST['username'])), $_POST['password']);
 
                 if ($compte != null) {
                     $sessionManager->openSession($compte->getNomUtilisateur(), $compte->getPkCompte(), $compte->getEstAdmin());
@@ -142,7 +142,7 @@ switch ($action) {
                     break;
                 }
                 $compteManager = new CompteManager();
-                $username = $_POST['username'];
+                $username = htmlspecialchars($_POST['username']);
                 $password = $_POST['password'];
                 $passwordConfirm = $_POST['passwordConfirm'];
                 if ($password !== $passwordConfirm) {
@@ -360,7 +360,7 @@ switch ($action) {
                     break;
                 }
                 if (isset($_POST['code_promo'])) {
-                    $codePromo = $_POST['code_promo'];
+                    $codePromo = htmlspecialchars($_POST['code_promo']);
                     if ($panierManager->checkCodePromo($codePromo)) {
                         $panierManager->setCodePromo($codePromo, $panier->getPkPanier());
                     } else {

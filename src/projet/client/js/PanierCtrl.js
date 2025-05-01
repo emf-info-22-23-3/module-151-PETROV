@@ -95,7 +95,7 @@ class PanierCtrl {
 
             let prixTotalAffichage = "";
             if (quantite > 1) {
-                prixTotalAffichage = `<p class="panier-produit-prix">Total : CHF ${formatPrix(prixTotal)}.-</p>`;
+                prixTotalAffichage = `<p class="panier-produit-prix">Total : CHF ${formatPrix(prixTotal)}</p>`;
             }
 
             $("#liste-panier-container").append(`
@@ -106,7 +106,7 @@ class PanierCtrl {
                         <p class="panier-produit-nom">${nom}</p>
                         <p class="panier-produit-quantite">Quantité choisie : ${quantite}</p>
                         <div class="panier-produit-prix-container">
-                            <p class="panier-produit-prix">À l'unité : CHF ${formatPrix(prix)}.-</p>
+                            <p class="panier-produit-prix">À l'unité : CHF ${formatPrix(prix)}</p>
                             ${prixTotalAffichage}
                         </div>
                     </div>
@@ -121,7 +121,7 @@ class PanierCtrl {
         });
         $(".page-content-container").after(`
             <div id="finalisation-commande-container">
-                <p id="finalisation-commande-prix">Prix total : CHF ${formatPrix(prixTotalPanier)}.-</p>
+                <p id="finalisation-commande-prix">Prix total : CHF ${formatPrix(prixTotalPanier)}</p>
                 <div id="finalisation-commande-form-container">
                     <input id="finalisation-commande-code" type="text" placeholder="Code de réduction">
                     <button id="finalisation-commande-button">Commander</button>

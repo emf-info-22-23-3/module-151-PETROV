@@ -100,7 +100,7 @@ switch ($action) {
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $sessionManager = new SessionManager();
             if ($sessionManager->isConnected()) {
-                http_response_code(response_code: 200);
+                http_response_code(200);
                 echo json_encode(array("estLogin" => true, "estAdmin" => $sessionManager->getEstAdmin()));
                 break;
             } else {

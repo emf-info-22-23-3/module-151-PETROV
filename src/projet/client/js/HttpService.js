@@ -1,4 +1,4 @@
-const url = "http://127.0.0.1:8080/projet/server/server.php";
+const url = "https://petrovt.emf-informatique.ch/151/projet/server/server.php";
 /*
  * @class
  * @classdesc Cette classe fait office de service HTTP pour l'application
